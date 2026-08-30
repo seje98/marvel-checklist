@@ -67,14 +67,17 @@ export const API_URL = "https://ebfc7a8ba624cb38.mokky.dev/watched";
 
 ## GitHub Pages
 
-В `vite.config.ts` указано `base: "./"`, поэтому сборка работает и в корне Pages, и в подкаталоге репозитория.
+Сборка для Pages: `npm run build:pages` (base `/marvel-checklist/`).
 
-Workflow: `.github/workflows/deploy.yml`
+Workflow: `.github/workflows/deploy.yml` публикует `dist` в ветку `gh-pages`.
 
 Как включить публикацию:
 
-1. В репозитории откройте **Settings → Pages**
-2. Source: **GitHub Actions**
-3. Сделайте push в `main` или `master`, либо запустите workflow вручную
+1. Дождитесь зелёного workflow **Deploy to GitHub Pages**
+2. В репозитории откройте **Settings → Pages**
+3. Source: **Deploy from a branch**
+4. Branch: **gh-pages**, folder: **/ (root)**
+
+Не выбирайте `master` — там исходники Vite, браузер не умеет их запускать.
 
 После успешного деплоя сайт будет доступен по адресу GitHub Pages.
