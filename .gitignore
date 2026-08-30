@@ -1,0 +1,21 @@
+node_modules
+dist
+dist-ssr
+*.local
+*.tsbuildinfo
+
+.DS_Store
+.idea
+.vscode
+
+.env
+.env.*
+
+# Локальные скиллы агента и артефакты Impeccable — не часть сайта
+.agents/
+.impeccable/
+skills-lock.json
+
+# Markdown кроме корневого README
+*.md
+!README.md
