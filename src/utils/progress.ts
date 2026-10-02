@@ -4,6 +4,27 @@ export function hasEpisodes(movie: Movie): movie is Movie & { episodes: number }
   return typeof movie.episodes === "number" && movie.episodes > 0;
 }
 
+export interface EpisodeRange {
+  first: number;
+  last: number;
+}
+
+/**
+ * Номера серий, которые входят в запись. Для частей сезона («S1 E08–E22»)
+ * это 8–22, для остальных сериалов — с первой серии до последней.
+ */
+export function getEpisodeRange(movie: Movie & { episodes: number }): EpisodeRange {
+  const match = movie.season?.match(/E(\d+)\s*[–-]\s*E(\d+)/);
+  if (match) {
+    const first = Number(match[1]);
+    const last = Number(match[2]);
+    if (last - first + 1 === movie.episodes) {
+      return { first, last };
+    }
+  }
+  return { first: 1, last: movie.episodes };
+}
+
 /**
  * Количество просмотренных серий. Запись без `episodes` (сделанная до появления
  * счётчика серий) считается полностью просмотренным сериалом.

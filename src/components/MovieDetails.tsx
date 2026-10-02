@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
 import type { Movie } from "../types/movie";
 import { formatOrder, formatYearLine, getBadges, TYPE_LABELS } from "../utils/labels";
-import { hasEpisodes } from "../utils/progress";
+import { getEpisodeRange, hasEpisodes } from "../utils/progress";
 import { EpisodeCounter } from "./EpisodeCounter";
 
 interface MovieDetailsProps {
@@ -12,6 +12,11 @@ interface MovieDetailsProps {
   onToggle: (id: string) => void;
   onSetEpisodes: (id: string, count: number) => void;
   onClose: () => void;
+}
+
+function formatEpisodes(movie: Movie & { episodes: number }): string {
+  const { first, last } = getEpisodeRange(movie);
+  return first > 1 ? `${first}–${last} (${movie.episodes})` : String(movie.episodes);
 }
 
 export function MovieDetails({
@@ -115,7 +120,7 @@ export function MovieDetails({
           {hasEpisodes(movie) ? (
             <>
               <dt>?????</dt>
-              <dd>{movie.episodes}</dd>
+              <dd>{formatEpisodes(movie)}</dd>
             </>
           ) : null}
           {movie.studio ? (
@@ -144,8 +149,8 @@ export function MovieDetails({
           <EpisodeCounter
             id={`details-${movie.id}`}
             title={movie.season ? `${movie.title}, ${movie.season}` : movie.title}
+            {...getEpisodeRange(movie)}
             watched={watchedEpisodes}
-            total={movie.episodes}
             disabled={pending}
             onChange={(count) => onSetEpisodes(movie.id, count)}
           />

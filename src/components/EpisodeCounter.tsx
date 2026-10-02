@@ -3,8 +3,12 @@ import { useEffect, useState } from "react";
 interface EpisodeCounterProps {
   id: string;
   title: string;
+  /** Номер первой серии записи (для «S1 E08–E22» это 8). */
+  first: number;
+  /** Номер последней серии записи (для «S1 E08–E22» это 22). */
+  last: number;
+  /** Сколько серий записи просмотрено (0 … last − first + 1). */
   watched: number;
-  total: number;
   disabled?: boolean;
   onChange: (count: number) => void;
 }
@@ -12,29 +16,35 @@ interface EpisodeCounterProps {
 export function EpisodeCounter({
   id,
   title,
+  first,
+  last,
   watched,
-  total,
   disabled = false,
   onChange,
 }: EpisodeCounterProps) {
-  const [draft, setDraft] = useState(String(watched));
+  // Показываем номер последней просмотренной серии. Пока ничего не просмотрено,
+  // это номер серии перед первой (0 для целого сезона, 7 для E08–E22).
+  const base = first - 1;
+  const total = last - base;
+  const current = base + watched;
   const percent = Math.round((watched / total) * 100);
+  const [draft, setDraft] = useState(String(current));
   const inputId = `episodes-${id}`;
 
   useEffect(() => {
-    setDraft(String(watched));
-  }, [watched]);
+    setDraft(String(current));
+  }, [current]);
 
   const commit = () => {
     const parsed = Number.parseInt(draft, 10);
     if (Number.isNaN(parsed)) {
-      setDraft(String(watched));
+      setDraft(String(current));
       return;
     }
-    const next = Math.min(Math.max(parsed, 0), total);
+    const next = Math.min(Math.max(parsed, base), last);
     setDraft(String(next));
-    if (next !== watched) {
-      onChange(next);
+    if (next !== current) {
+      onChange(next - base);
     }
   };
 
@@ -55,7 +65,7 @@ export function EpisodeCounter({
 
         <div className="episode-value">
           <label className="sr-only" htmlFor={inputId}>
-            Просмотрено серий
+            Последняя просмотренная серия
           </label>
           <input
             id={inputId}
@@ -74,12 +84,12 @@ export function EpisodeCounter({
                 event.currentTarget.blur();
               }
               if (event.key === "Escape") {
-                setDraft(String(watched));
+                setDraft(String(current));
                 event.currentTarget.blur();
               }
             }}
           />
-          <span className="episode-total">из&nbsp;{total}</span>
+          <span className="episode-total">из&nbsp;{last}</span>
         </div>
 
         <button
@@ -103,10 +113,10 @@ export function EpisodeCounter({
       <div
         className="episode-track"
         role="progressbar"
-        aria-valuemin={0}
-        aria-valuemax={total}
-        aria-valuenow={watched}
-        aria-valuetext={`${watched} из ${total} серий`}
+        aria-valuemin={base}
+        aria-valuemax={last}
+        aria-valuenow={current}
+        aria-valuetext={`Просмотрено до серии ${current} из ${last}`}
         aria-label={`Просмотрено серий «${title}»`}
       >
         <div

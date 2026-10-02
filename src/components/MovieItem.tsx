@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import type { Movie } from "../types/movie";
 import { formatOrder, formatYearLine, getBadges } from "../utils/labels";
-import { hasEpisodes } from "../utils/progress";
+import { getEpisodeRange, hasEpisodes } from "../utils/progress";
 import { EpisodeCounter } from "./EpisodeCounter";
 
 interface MovieItemProps {
@@ -90,8 +90,8 @@ export function MovieItem({
           <EpisodeCounter
             id={movie.id}
             title={movie.season ? `${movie.title}, ${movie.season}` : movie.title}
+            {...getEpisodeRange(movie)}
             watched={watchedEpisodes}
-            total={movie.episodes}
             disabled={pending}
             onChange={(count) => onSetEpisodes(movie.id, count)}
           />
