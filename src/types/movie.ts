@@ -27,6 +27,7 @@ export interface Movie {
   releaseDate?: string;
   type: MovieType;
   season?: string;
+  episodes?: number;
   studio?: string;
   universe?: string;
   tags: MovieTag[];
@@ -40,6 +41,12 @@ export interface Movie {
 export interface WatchedRecord {
   id: number;
   filmId: string;
+  episodes?: number;
+}
+
+export interface WatchedEntry {
+  recordId: number | null;
+  episodes?: number;
 }
 
 export type WatchStatusFilter = "all" | "watched" | "unwatched";
@@ -61,12 +68,14 @@ export type PendingAction = "watch" | "unwatch";
 export interface PendingChange {
   filmId: string;
   action: PendingAction;
+  episodes?: number;
 }
 
 export interface ToastAction {
   label: string;
   kind: "undo" | "retry";
   filmId?: string;
+  episodes?: number;
 }
 
 export interface ToastMessage {

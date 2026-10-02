@@ -14,6 +14,7 @@ import type {
   ToastAction,
   ToastMessage,
   TypeFilter,
+  WatchedEntry,
   WatchStatusFilter,
 } from "../types/movie";
 import {
@@ -24,7 +25,13 @@ import {
   matchesStatus,
   matchesType,
 } from "../utils/filters";
-import { getProgress, groupBySection } from "../utils/progress";
+import {
+  getProgress,
+  getWatchedEpisodes,
+  groupBySection,
+  hasEpisodes,
+  isFullyWatched,
+} from "../utils/progress";
 import {
   cacheFromMap,
   DEFAULT_FILTERS,
@@ -40,21 +47,39 @@ import {
 } from "../utils/storage";
 
 const movies = moviesData as Movie[];
+const movieById = new Map(movies.map((movie) => [movie.id, movie]));
+
+const EPISODES_SYNC_DELAY_MS = 600;
 
 let toastSeq = 1;
 
 function enqueueChange(
   queue: PendingChange[],
-  filmId: string,
-  action: PendingChange["action"],
+  change: PendingChange,
 ): PendingChange[] {
-  const next = queue.filter((item) => item.filmId !== filmId);
-  next.push({ filmId, action });
+  const next = queue.filter((item) => item.filmId !== change.filmId);
+  next.push(change);
+  return next;
+}
+
+function applyChangeToMap(
+  map: Map<string, WatchedEntry>,
+  change: PendingChange,
+): Map<string, WatchedEntry> {
+  const next = new Map(map);
+  if (change.action === "unwatch") {
+    next.delete(change.filmId);
+  } else {
+    next.set(change.filmId, {
+      recordId: map.get(change.filmId)?.recordId ?? null,
+      ...(change.episodes !== undefined ? { episodes: change.episodes } : {}),
+    });
+  }
   return next;
 }
 
 export function useWatchlist() {
-  const [watchedMap, setWatchedMap] = useState<Map<string, number | null>>(
+  const [watchedMap, setWatchedMap] = useState<Map<string, WatchedEntry>>(
     () => mapFromCache(loadWatchedCache()),
   );
   const [syncStatus, setSyncStatus] = useState<SyncStatus>("syncing");
@@ -71,14 +96,28 @@ export function useWatchlist() {
 
   const watchedMapRef = useRef(watchedMap);
   const queueRef = useRef<PendingChange[]>(loadQueue());
-  const syncingRef = useRef(false);
+  const flushRef = useRef<Promise<boolean> | null>(null);
+  const episodesTimerRef = useRef(0);
   const pendingRef = useRef(new Set<string>());
   const [pendingIds, setPendingIds] = useState<ReadonlySet<string>>(() => new Set());
 
   useEffect(() => {
-    watchedMapRef.current = watchedMap;
     saveWatchedCache(cacheFromMap(watchedMap));
   }, [watchedMap]);
+
+  // Ref обновляется синхронно, чтобы быстрые подряд идущие нажатия «+1»
+  // видели актуальное значение, а не состояние предыдущего рендера.
+  const updateWatchedMap = useCallback(
+    (update: (current: Map<string, WatchedEntry>) => Map<string, WatchedEntry>) => {
+      const next = update(watchedMapRef.current);
+      if (next === watchedMapRef.current) {
+        return;
+      }
+      watchedMapRef.current = next;
+      setWatchedMap(next);
+    },
+    [],
+  );
 
   const pushToast = useCallback(
     (type: ToastMessage["type"], text: string, action?: ToastAction) => {
@@ -95,64 +134,82 @@ export function useWatchlist() {
     setToasts((current) => current.filter((toast) => toast.id !== id));
   }, []);
 
-  const applyRemoteWatched = useCallback((records: { id: number; filmId: string }[]) => {
-    const next = new Map<string, number | null>();
-    for (const record of records) {
-      if (!next.has(record.filmId)) {
-        next.set(record.filmId, record.id);
-      }
-    }
-    setWatchedMap(next);
-    saveWatchedCache(cacheFromMap(next));
-  }, []);
-
-  const flushQueue = useCallback(async (): Promise<boolean> => {
-    if (syncingRef.current || queueRef.current.length === 0) {
-      return queueRef.current.length === 0;
-    }
-
-    syncingRef.current = true;
-    setSyncStatus("syncing");
-
-    try {
-      const pending = [...queueRef.current];
-      for (const change of pending) {
-        if (change.action === "watch") {
-          const record = await markFilmAsWatched(change.filmId);
-          setWatchedMap((current) => {
-            const next = new Map(current);
-            next.set(change.filmId, record.id);
-            return next;
-          });
-        } else {
-          const recordId = watchedMapRef.current.get(change.filmId);
-          await unmarkFilmAsWatched(
-            change.filmId,
-            typeof recordId === "number" ? recordId : undefined,
-          );
-          setWatchedMap((current) => {
-            const next = new Map(current);
-            next.delete(change.filmId);
-            return next;
+  const applyRemoteWatched = useCallback(
+    (records: { id: number; filmId: string; episodes?: number }[]) => {
+      let next = new Map<string, WatchedEntry>();
+      for (const record of records) {
+        if (!next.has(record.filmId)) {
+          next.set(record.filmId, {
+            recordId: record.id,
+            ...(record.episodes !== undefined ? { episodes: record.episodes } : {}),
           });
         }
-        queueRef.current = queueRef.current.filter(
-          (item) => item !== change && item.filmId !== change.filmId,
-        );
-        saveQueue(queueRef.current);
       }
+      // Ещё не отправленные локальные изменения важнее серверного состояния.
+      for (const change of queueRef.current) {
+        next = applyChangeToMap(next, change);
+      }
+      watchedMapRef.current = next;
+      setWatchedMap(next);
+      saveWatchedCache(cacheFromMap(next));
+    },
+    [],
+  );
 
-      setUsingLocal(false);
-      setSyncStatus("synced");
-      return true;
-    } catch {
-      setSyncStatus("offline");
-      setUsingLocal(true);
-      return false;
-    } finally {
-      syncingRef.current = false;
+  // Один общий проход по очереди: изменения, добавленные во время отправки
+  // (например, быстрые нажатия «+1»), подхватываются тем же циклом.
+  const flushQueue = useCallback((): Promise<boolean> => {
+    if (flushRef.current) {
+      return flushRef.current;
     }
-  }, []);
+    if (queueRef.current.length === 0) {
+      return Promise.resolve(true);
+    }
+
+    const run = (async () => {
+      setSyncStatus("syncing");
+      try {
+        while (queueRef.current.length > 0) {
+          const change = queueRef.current[0];
+
+          if (change.action === "watch") {
+            const record = await markFilmAsWatched(change.filmId, change.episodes);
+            updateWatchedMap((current) => {
+              const entry = current.get(change.filmId);
+              if (!entry || entry.recordId === record.id) {
+                return current;
+              }
+              const next = new Map(current);
+              next.set(change.filmId, { ...entry, recordId: record.id });
+              return next;
+            });
+          } else {
+            const recordId = watchedMapRef.current.get(change.filmId)?.recordId;
+            await unmarkFilmAsWatched(
+              change.filmId,
+              typeof recordId === "number" ? recordId : undefined,
+            );
+          }
+
+          queueRef.current = queueRef.current.filter((item) => item !== change);
+          saveQueue(queueRef.current);
+        }
+
+        setUsingLocal(false);
+        setSyncStatus("synced");
+        return true;
+      } catch {
+        setSyncStatus("offline");
+        setUsingLocal(true);
+        return false;
+      } finally {
+        flushRef.current = null;
+      }
+    })();
+
+    flushRef.current = run;
+    return run;
+  }, [updateWatchedMap]);
 
   const refreshFromApi = useCallback(async () => {
     setSyncStatus("syncing");
@@ -212,14 +269,36 @@ export function useWatchlist() {
     saveCollapsed([...collapsed]);
   }, [collapsed]);
 
-  const watchedIds = useMemo(
-    () => new Set(watchedMap.keys()),
-    [watchedMap],
+  const { watchedIds, episodesById } = useMemo(() => {
+    const ids = new Set<string>();
+    const episodes = new Map<string, number>();
+    for (const [filmId, entry] of watchedMap) {
+      const movie = movieById.get(filmId);
+      if (!movie) {
+        continue;
+      }
+      if (isFullyWatched(movie, entry)) {
+        ids.add(filmId);
+      }
+      if (hasEpisodes(movie)) {
+        episodes.set(filmId, getWatchedEpisodes(movie, entry));
+      }
+    }
+    return { watchedIds: ids, episodesById: episodes as ReadonlyMap<string, number> };
+  }, [watchedMap]);
+
+  const commitChange = useCallback(
+    (change: PendingChange) => {
+      updateWatchedMap((current) => applyChangeToMap(current, change));
+      queueRef.current = enqueueChange(queueRef.current, change);
+      saveQueue(queueRef.current);
+    },
+    [updateWatchedMap],
   );
 
   const toggleWatched = useCallback(
     async (filmId: string) => {
-      const movie = movies.find((item) => item.id === filmId);
+      const movie = movieById.get(filmId);
       if (!movie || movie.future || pendingRef.current.has(filmId)) {
         return;
       }
@@ -227,25 +306,24 @@ export function useWatchlist() {
       pendingRef.current.add(filmId);
       setPendingIds(new Set(pendingRef.current));
 
-      const wasWatched = watchedMapRef.current.has(filmId);
-      const previous = new Map(watchedMapRef.current);
+      const entry = watchedMapRef.current.get(filmId);
+      const wasWatched = isFullyWatched(movie, entry);
+      const previousEpisodes = hasEpisodes(movie)
+        ? getWatchedEpisodes(movie, entry)
+        : undefined;
 
       try {
-        setWatchedMap((current) => {
-          const next = new Map(current);
-          if (wasWatched) {
-            next.delete(filmId);
-          } else {
-            next.set(filmId, current.get(filmId) ?? null);
-          }
-          return next;
-        });
-
-        const action = wasWatched ? "unwatch" : "watch";
+        commitChange(
+          wasWatched
+            ? { filmId, action: "unwatch" }
+            : {
+                filmId,
+                action: "watch",
+                ...(hasEpisodes(movie) ? { episodes: movie.episodes } : {}),
+              },
+        );
 
         if (!navigator.onLine || syncStatus === "offline") {
-          queueRef.current = enqueueChange(queueRef.current, filmId, action);
-          saveQueue(queueRef.current);
           pushToast(
             "info",
             "Нет сети. Отметка сохранена только на этом устройстве.",
@@ -254,42 +332,16 @@ export function useWatchlist() {
           return;
         }
 
-        setSyncStatus("syncing");
-        try {
-          if (wasWatched) {
-            const recordId = previous.get(filmId);
-            await unmarkFilmAsWatched(
-              filmId,
-              typeof recordId === "number" ? recordId : undefined,
-            );
-            setWatchedMap((current) => {
-              const next = new Map(current);
-              next.delete(filmId);
-              return next;
-            });
-          } else {
-            const record = await markFilmAsWatched(filmId);
-            setWatchedMap((current) => {
-              const next = new Map(current);
-              next.set(filmId, record.id);
-              return next;
-            });
-          }
-          setSyncStatus("synced");
-          setUsingLocal(false);
+        const saved = await flushQueue();
+        if (saved) {
           pushToast(
             "success",
             wasWatched
               ? "Просмотр снят из общего списка."
               : "Отмечено в общем списке.",
-            { label: "Отменить", kind: "undo", filmId },
+            { label: "Отменить", kind: "undo", filmId, episodes: previousEpisodes },
           );
-        } catch {
-          setWatchedMap(previous);
-          queueRef.current = enqueueChange(queueRef.current, filmId, action);
-          saveQueue(queueRef.current);
-          setSyncStatus("offline");
-          setUsingLocal(true);
+        } else {
           pushToast("error", "Не удалось сохранить в общий список.", {
             label: "Повторить",
             kind: "retry",
@@ -300,9 +352,53 @@ export function useWatchlist() {
         setPendingIds(new Set(pendingRef.current));
       }
     },
-    [pushToast, syncStatus],
+    [commitChange, flushQueue, pushToast, syncStatus],
   );
 
+  const setEpisodes = useCallback(
+    (filmId: string, count: number) => {
+      const movie = movieById.get(filmId);
+      if (!movie || movie.future || !hasEpisodes(movie) || !Number.isFinite(count)) {
+        return;
+      }
+
+      const target = Math.min(Math.max(Math.trunc(count), 0), movie.episodes);
+      const entry = watchedMapRef.current.get(filmId);
+      if (getWatchedEpisodes(movie, entry) === target && Boolean(entry) === target > 0) {
+        return;
+      }
+
+      commitChange(
+        target === 0
+          ? { filmId, action: "unwatch" }
+          : { filmId, action: "watch", episodes: target },
+      );
+
+      // Серия нажатий «+1» отправляется на сервер одним запросом.
+      window.clearTimeout(episodesTimerRef.current);
+      episodesTimerRef.current = window.setTimeout(() => {
+        if (!navigator.onLine) {
+          pushToast(
+            "info",
+            "Нет сети. Прогресс сохранён только на этом устройстве.",
+            { label: "Повторить", kind: "retry" },
+          );
+          return;
+        }
+        void flushQueue().then((saved) => {
+          if (!saved) {
+            pushToast("error", "Не удалось сохранить прогресс сериала.", {
+              label: "Повторить",
+              kind: "retry",
+            });
+          }
+        });
+      }, EPISODES_SYNC_DELAY_MS);
+    },
+    [commitChange, flushQueue, pushToast],
+  );
+
+  useEffect(() => () => window.clearTimeout(episodesTimerRef.current), []);
   const filteredMovies = useMemo(
     () =>
       movies.filter(
@@ -396,7 +492,7 @@ export function useWatchlist() {
     syncStatus,
     watchedIds,
     pendingIds,
-    watchedMap,
+    episodesById,
     overall,
     sections,
     allSections,
@@ -416,6 +512,7 @@ export function useWatchlist() {
     collapseAll,
     expandAll,
     toggleWatched,
+    setEpisodes,
     selectedMovie,
     openDetails: setSelectedId,
     closeDetails: () => setSelectedId(null),
@@ -423,7 +520,11 @@ export function useWatchlist() {
     dismissToast,
     applyToastAction: (toast: ToastMessage) => {
       if (toast.action?.kind === "undo" && toast.action.filmId) {
-        void toggleWatched(toast.action.filmId);
+        if (toast.action.episodes !== undefined) {
+          setEpisodes(toast.action.filmId, toast.action.episodes);
+        } else {
+          void toggleWatched(toast.action.filmId);
+        }
         return;
       }
       if (toast.action?.kind === "retry") {

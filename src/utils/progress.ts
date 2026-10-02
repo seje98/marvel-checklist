@@ -1,4 +1,38 @@
-import type { Movie } from "../types/movie";
+import type { Movie, WatchedEntry } from "../types/movie";
+
+export function hasEpisodes(movie: Movie): movie is Movie & { episodes: number } {
+  return typeof movie.episodes === "number" && movie.episodes > 0;
+}
+
+/**
+ * Количество просмотренных серий. Запись без `episodes` (сделанная до появления
+ * счётчика серий) считается полностью просмотренным сериалом.
+ */
+export function getWatchedEpisodes(
+  movie: Movie,
+  entry: WatchedEntry | undefined,
+): number {
+  if (!entry || !hasEpisodes(movie)) {
+    return 0;
+  }
+  if (entry.episodes === undefined) {
+    return movie.episodes;
+  }
+  return Math.min(entry.episodes, movie.episodes);
+}
+
+export function isFullyWatched(
+  movie: Movie,
+  entry: WatchedEntry | undefined,
+): boolean {
+  if (!entry) {
+    return false;
+  }
+  if (!hasEpisodes(movie)) {
+    return true;
+  }
+  return getWatchedEpisodes(movie, entry) >= movie.episodes;
+}
 
 export interface ProgressStats {
   watched: number;

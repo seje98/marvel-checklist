@@ -1,20 +1,26 @@
 import { useCallback, useEffect, useRef } from "react";
 import type { Movie } from "../types/movie";
 import { formatOrder, formatYearLine, getBadges, TYPE_LABELS } from "../utils/labels";
+import { hasEpisodes } from "../utils/progress";
+import { EpisodeCounter } from "./EpisodeCounter";
 
 interface MovieDetailsProps {
   movie: Movie;
   watched: boolean;
+  watchedEpisodes: number;
   pending: boolean;
   onToggle: (id: string) => void;
+  onSetEpisodes: (id: string, count: number) => void;
   onClose: () => void;
 }
 
 export function MovieDetails({
   movie,
   watched,
+  watchedEpisodes,
   pending,
   onToggle,
+  onSetEpisodes,
   onClose,
 }: MovieDetailsProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -106,6 +112,12 @@ export function MovieDetails({
           ) : null}
           <dt>Тип</dt>
           <dd>{TYPE_LABELS[movie.type]}</dd>
+          {hasEpisodes(movie) ? (
+            <>
+              <dt>?????</dt>
+              <dd>{movie.episodes}</dd>
+            </>
+          ) : null}
           {movie.studio ? (
             <>
               <dt>Студия</dt>
@@ -127,6 +139,17 @@ export function MovieDetails({
             </span>
           ))}
         </div>
+
+        {hasEpisodes(movie) && !movie.future ? (
+          <EpisodeCounter
+            id={`details-${movie.id}`}
+            title={movie.season ? `${movie.title}, ${movie.season}` : movie.title}
+            watched={watchedEpisodes}
+            total={movie.episodes}
+            disabled={pending}
+            onChange={(count) => onSetEpisodes(movie.id, count)}
+          />
+        ) : null}
 
         {movie.future ? (
           <p className="details-future">Ещё не вышел — отметить нельзя</p>

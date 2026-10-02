@@ -8,6 +8,7 @@
     "releaseYear": 2025,
     "type": "series",
     "season": "S1",
+    "episodes": 4,
     "studio": "Marvel Studios",
     "tags": ["recommended"],
     "section": 1,
@@ -36,6 +37,7 @@
     "releaseYear": 2015,
     "type": "series",
     "season": "S1",
+    "episodes": 8,
     "studio": "ABC/Marvel Television",
     "tags": ["recommended"],
     "section": 1,
@@ -50,6 +52,7 @@
     "releaseYear": 2016,
     "type": "series",
     "season": "S2",
+    "episodes": 10,
     "studio": "ABC/Marvel Television",
     "tags": ["recommended"],
     "section": 1,
@@ -451,6 +454,7 @@
     "releaseYear": 2013,
     "type": "series",
     "season": "S1 E01–E07",
+    "episodes": 7,
     "studio": "ABC",
     "tags": ["tv", "legacy", "recommended"],
     "section": 8,
@@ -476,6 +480,7 @@
     "timeline": "2014",
     "type": "series",
     "season": "S1 E08–E16",
+    "episodes": 9,
     "tags": ["tv", "legacy", "recommended"],
     "section": 8,
     "sectionTitle": "Основная MCU: 2008–2014"
@@ -488,6 +493,7 @@
     "timeline": "2014",
     "type": "series",
     "season": "S1 E17–E22",
+    "episodes": 6,
     "tags": ["tv", "legacy", "required"],
     "section": 8,
     "sectionTitle": "Основная MCU: 2008–2014"
@@ -525,6 +531,7 @@
     "releaseYear": 2022,
     "type": "animation",
     "season": "S1",
+    "episodes": 5,
     "tags": ["recommended"],
     "section": 8,
     "sectionTitle": "Основная MCU: 2008–2014"
@@ -538,6 +545,7 @@
     "releaseYear": 2023,
     "type": "animation",
     "season": "S2",
+    "episodes": 5,
     "tags": ["recommended"],
     "section": 8,
     "sectionTitle": "Основная MCU: 2008–2014"
@@ -550,6 +558,7 @@
     "timeline": "2014–2015",
     "type": "series",
     "season": "S2 E01–E19",
+    "episodes": 19,
     "tags": ["tv", "legacy", "recommended"],
     "section": 8,
     "sectionTitle": "Основная MCU: 2008–2014"
@@ -574,6 +583,7 @@
     "timeline": "2015",
     "type": "series",
     "season": "S2 E20–E22",
+    "episodes": 3,
     "tags": ["tv", "legacy", "recommended"],
     "section": 8,
     "sectionTitle": "Основная MCU: 2008–2014"
@@ -599,6 +609,7 @@
     "releaseYear": 2015,
     "type": "series",
     "season": "S1",
+    "episodes": 13,
     "studio": "Netflix",
     "tags": ["required"],
     "section": 9,
@@ -613,6 +624,7 @@
     "releaseYear": 2015,
     "type": "series",
     "season": "S1",
+    "episodes": 13,
     "studio": "Netflix",
     "tags": ["required"],
     "section": 9,
@@ -627,6 +639,7 @@
     "releaseYear": 2016,
     "type": "series",
     "season": "S2",
+    "episodes": 13,
     "studio": "Netflix",
     "tags": ["required"],
     "section": 9,
@@ -641,6 +654,7 @@
     "releaseYear": 2016,
     "type": "series",
     "season": "S1",
+    "episodes": 13,
     "studio": "Netflix",
     "tags": ["recommended"],
     "section": 9,
@@ -655,6 +669,7 @@
     "releaseYear": 2017,
     "type": "series",
     "season": "S1",
+    "episodes": 13,
     "studio": "Netflix",
     "tags": ["recommended"],
     "section": 9,
@@ -668,6 +683,7 @@
     "timeline": "2016",
     "releaseYear": 2017,
     "type": "series",
+    "episodes": 8,
     "studio": "Netflix",
     "tags": ["required"],
     "section": 9,
@@ -682,6 +698,7 @@
     "releaseYear": 2017,
     "type": "series",
     "season": "S1",
+    "episodes": 13,
     "studio": "Netflix",
     "tags": ["required"],
     "section": 9,
@@ -695,6 +712,7 @@
     "timeline": "2015–2016",
     "type": "series",
     "season": "S3 E01–E19",
+    "episodes": 19,
     "tags": ["tv", "legacy", "recommended"],
     "section": 10,
     "sectionTitle": "MCU: 2015–2016"
@@ -719,6 +737,7 @@
     "timeline": "2016",
     "type": "series",
     "season": "S3 E20–E22",
+    "episodes": 3,
     "tags": ["tv", "legacy", "recommended"],
     "section": 10,
     "sectionTitle": "MCU: 2015–2016"
@@ -780,6 +799,7 @@
     "timeline": "2016–2017",
     "type": "series",
     "season": "S4",
+    "episodes": 22,
     "tags": ["tv", "legacy", "recommended"],
     "section": 10,
     "sectionTitle": "MCU: 2015–2016"
@@ -806,6 +826,7 @@
     "releaseYear": 2017,
     "type": "series",
     "season": "S1",
+    "episodes": 8,
     "studio": "ABC",
     "tags": ["optional"],
     "section": 10,
@@ -819,6 +840,7 @@
     "timeline": "2017",
     "type": "series",
     "season": "S2",
+    "episodes": 13,
     "tags": ["recommended"],
     "section": 11,
     "sectionTitle": "Netflix: продолжение"
@@ -831,6 +853,7 @@
     "timeline": "2017",
     "type": "series",
     "season": "S2",
+    "episodes": 13,
     "tags": ["recommended"],
     "section": 11,
     "sectionTitle": "Netflix: продолжение"
@@ -843,6 +866,7 @@
     "timeline": "2017",
     "type": "series",
     "season": "S2",
+    "episodes": 10,
     "tags": ["recommended"],
     "section": 11,
     "sectionTitle": "Netflix: продолжение"
@@ -855,6 +879,7 @@
     "timeline": "2017–2018",
     "type": "series",
     "season": "S2",
+    "episodes": 13,
     "tags": ["recommended"],
     "section": 11,
     "sectionTitle": "Netflix: продолжение"
@@ -867,6 +892,7 @@
     "timeline": "2017",
     "type": "series",
     "season": "S3",
+    "episodes": 13,
     "tags": ["required"],
     "section": 11,
     "sectionTitle": "Netflix: продолжение"
@@ -879,6 +905,7 @@
     "timeline": "2018",
     "type": "series",
     "season": "S3",
+    "episodes": 13,
     "tags": ["recommended"],
     "section": 11,
     "sectionTitle": "Netflix: продолжение"
@@ -937,6 +964,7 @@
     "releaseYear": 2018,
     "type": "series",
     "season": "S1",
+    "episodes": 10,
     "studio": "Freeform",
     "tags": ["recommended"],
     "section": 12,
@@ -951,6 +979,7 @@
     "releaseYear": 2017,
     "type": "series",
     "season": "S1",
+    "episodes": 10,
     "studio": "Hulu",
     "tags": ["recommended"],
     "section": 12,
@@ -964,6 +993,7 @@
     "timeline": "2018",
     "type": "series",
     "season": "S2",
+    "episodes": 10,
     "tags": ["recommended"],
     "section": 12,
     "sectionTitle": "Рагнарёк и смежные сериалы"
@@ -976,6 +1006,7 @@
     "timeline": "2018",
     "type": "series",
     "season": "S2",
+    "episodes": 13,
     "tags": ["recommended"],
     "section": 12,
     "sectionTitle": "Рагнарёк и смежные сериалы"
@@ -988,6 +1019,7 @@
     "timeline": "2019",
     "type": "series",
     "season": "S3",
+    "episodes": 10,
     "tags": ["recommended"],
     "section": 12,
     "sectionTitle": "Рагнарёк и смежные сериалы"
@@ -1000,6 +1032,7 @@
     "timeline": "2017–2018",
     "type": "series",
     "season": "S5 E01–E19",
+    "episodes": 19,
     "tags": ["tv", "legacy", "recommended"],
     "section": 13,
     "sectionTitle": "Война бесконечности"
@@ -1037,6 +1070,7 @@
     "timeline": "2018",
     "type": "series",
     "season": "S5 E20–E22",
+    "episodes": 3,
     "tags": ["tv", "legacy", "recommended"],
     "section": 13,
     "sectionTitle": "Война бесконечности"
@@ -1062,6 +1096,7 @@
     "timeline": "2019",
     "type": "series",
     "season": "S6",
+    "episodes": 13,
     "tags": ["tv", "legacy", "recommended"],
     "section": 13,
     "sectionTitle": "Война бесконечности"
@@ -1074,6 +1109,7 @@
     "timeline": "1931–1983 / 2019",
     "type": "series",
     "season": "S7",
+    "episodes": 13,
     "tags": ["tv", "legacy", "recommended"],
     "section": 13,
     "sectionTitle": "Война бесконечности",
@@ -1088,6 +1124,7 @@
     "releaseYear": 2021,
     "type": "series",
     "season": "S1",
+    "episodes": 6,
     "studio": "Disney+",
     "tags": ["required", "multiverse"],
     "section": 14,
@@ -1102,6 +1139,7 @@
     "releaseYear": 2021,
     "type": "animation",
     "season": "S1",
+    "episodes": 9,
     "tags": ["multiverse", "recommended"],
     "section": 14,
     "sectionTitle": "Мультивселенная: Локи и «Что, если...?»"
@@ -1115,6 +1153,7 @@
     "releaseYear": 2023,
     "type": "series",
     "season": "S2",
+    "episodes": 6,
     "tags": ["required", "multiverse"],
     "section": 14,
     "sectionTitle": "Мультивселенная: Локи и «Что, если...?»"
@@ -1128,6 +1167,7 @@
     "releaseYear": 2023,
     "type": "animation",
     "season": "S2",
+    "episodes": 9,
     "tags": ["multiverse", "recommended"],
     "section": 14,
     "sectionTitle": "Мультивселенная: Локи и «Что, если...?»"
@@ -1141,6 +1181,7 @@
     "releaseYear": 2024,
     "type": "animation",
     "season": "S3",
+    "episodes": 8,
     "tags": ["multiverse", "recommended"],
     "section": 14,
     "sectionTitle": "Мультивселенная: Локи и «Что, если...?»"
@@ -1153,6 +1194,7 @@
     "timeline": "альтернативная реальность",
     "releaseYear": 2025,
     "type": "animation",
+    "episodes": 4,
     "studio": "Marvel Studios",
     "tags": ["multiverse", "recommended"],
     "section": 14,
@@ -1167,6 +1209,7 @@
     "releaseYear": 2025,
     "type": "animation",
     "season": "S1",
+    "episodes": 10,
     "tags": ["multiverse", "recommended"],
     "section": 14,
     "sectionTitle": "Мультивселенная: Локи и «Что, если...?»"
@@ -1180,6 +1223,7 @@
     "releaseYear": 2026,
     "type": "animation",
     "season": "S2",
+    "episodes": 10,
     "tags": ["multiverse", "recommended"],
     "section": 14,
     "sectionTitle": "Мультивселенная: Локи и «Что, если...?»"
@@ -1192,6 +1236,7 @@
     "timeline": "2023",
     "releaseYear": 2021,
     "type": "series",
+    "episodes": 9,
     "studio": "Disney+",
     "tags": ["required"],
     "section": 15,
@@ -1205,6 +1250,7 @@
     "timeline": "2024",
     "releaseYear": 2021,
     "type": "series",
+    "episodes": 6,
     "tags": ["required"],
     "section": 15,
     "sectionTitle": "MCU после Скачка"
@@ -1267,6 +1313,7 @@
     "timeline": "2024",
     "releaseYear": 2021,
     "type": "series",
+    "episodes": 6,
     "tags": ["recommended"],
     "section": 15,
     "sectionTitle": "MCU после Скачка"
@@ -1291,6 +1338,7 @@
     "timeline": "2025",
     "releaseYear": 2022,
     "type": "series",
+    "episodes": 6,
     "tags": ["recommended"],
     "section": 15,
     "sectionTitle": "MCU после Скачка"
@@ -1303,6 +1351,7 @@
     "timeline": "2025",
     "releaseYear": 2022,
     "type": "series",
+    "episodes": 6,
     "tags": ["recommended"],
     "section": 15,
     "sectionTitle": "MCU после Скачка"
@@ -1327,6 +1376,7 @@
     "timeline": "2025",
     "releaseYear": 2022,
     "type": "series",
+    "episodes": 9,
     "tags": ["recommended"],
     "section": 15,
     "sectionTitle": "MCU после Скачка"
@@ -1399,6 +1449,7 @@
     "timeline": "2026",
     "releaseYear": 2023,
     "type": "series",
+    "episodes": 6,
     "tags": ["recommended"],
     "section": 15,
     "sectionTitle": "MCU после Скачка"
@@ -1423,6 +1474,7 @@
     "timeline": "2025",
     "releaseYear": 2024,
     "type": "series",
+    "episodes": 5,
     "tags": ["recommended"],
     "section": 15,
     "sectionTitle": "MCU после Скачка"
@@ -1435,6 +1487,7 @@
     "timeline": "2026",
     "releaseYear": 2025,
     "type": "series",
+    "episodes": 6,
     "tags": ["recommended"],
     "section": 15,
     "sectionTitle": "MCU после Скачка"
@@ -1447,6 +1500,7 @@
     "timeline": "2026",
     "releaseYear": 2024,
     "type": "series",
+    "episodes": 9,
     "tags": ["recommended"],
     "section": 15,
     "sectionTitle": "MCU после Скачка"
@@ -1539,6 +1593,7 @@
     "releaseYear": 2026,
     "type": "series",
     "season": "S1",
+    "episodes": 8,
     "studio": "Sony / Prime Video",
     "tags": ["multiverse", "recommended"],
     "section": 17,
@@ -1644,6 +1699,7 @@
     "releaseYear": 2017,
     "type": "series",
     "season": "S1",
+    "episodes": 8,
     "studio": "FX",
     "tags": ["multiverse", "recommended"],
     "section": 19,
@@ -1657,6 +1713,7 @@
     "releaseYear": 2018,
     "type": "series",
     "season": "S2",
+    "episodes": 11,
     "tags": ["multiverse", "recommended"],
     "section": 19,
     "sectionTitle": "Легион и Одарённые"
@@ -1669,6 +1726,7 @@
     "releaseYear": 2019,
     "type": "series",
     "season": "S3",
+    "episodes": 8,
     "tags": ["multiverse", "recommended"],
     "section": 19,
     "sectionTitle": "Легион и Одарённые"
@@ -1681,6 +1739,7 @@
     "releaseYear": 2017,
     "type": "series",
     "season": "S1",
+    "episodes": 13,
     "studio": "Fox",
     "tags": ["multiverse", "optional"],
     "section": 19,
@@ -1694,6 +1753,7 @@
     "releaseYear": 2018,
     "type": "series",
     "season": "S2",
+    "episodes": 16,
     "tags": ["multiverse", "optional"],
     "section": 19,
     "sectionTitle": "Легион и Одарённые"
@@ -1733,6 +1793,7 @@
     "releaseYear": 2025,
     "type": "series",
     "season": "S1",
+    "episodes": 9,
     "studio": "Disney+",
     "tags": ["required"],
     "section": 20,
@@ -1747,6 +1808,7 @@
     "releaseYear": 2026,
     "type": "series",
     "season": "S2",
+    "episodes": 8,
     "studio": "Disney+",
     "tags": ["required"],
     "section": 20,
@@ -1760,6 +1822,7 @@
     "timeline": "2027",
     "releaseYear": 2026,
     "type": "series",
+    "episodes": 8,
     "studio": "Disney+",
     "tags": ["recommended"],
     "section": 20,

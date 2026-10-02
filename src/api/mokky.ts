@@ -21,7 +21,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
 }
 
-export function isWatchedRecord(value: unknown): value is WatchedRecord {
+function isRawWatchedRecord(value: unknown): value is WatchedRecord {
   return (
     isRecord(value) &&
     typeof value.id === "number" &&
@@ -29,6 +29,21 @@ export function isWatchedRecord(value: unknown): value is WatchedRecord {
     typeof value.filmId === "string" &&
     value.filmId.length > 0
   );
+}
+
+function normalizeRecord(record: WatchedRecord): WatchedRecord {
+  const { episodes } = record;
+  const valid =
+    typeof episodes === "number" && Number.isInteger(episodes) && episodes >= 0;
+  return {
+    id: record.id,
+    filmId: record.filmId,
+    ...(valid ? { episodes } : {}),
+  };
+}
+
+export function isWatchedRecord(value: unknown): value is WatchedRecord {
+  return isRawWatchedRecord(value);
 }
 
 async function request<T>(
@@ -93,7 +108,7 @@ export async function getWatchedFilms(): Promise<WatchedRecord[]> {
     throw new ApiError("invalid", "Сервер вернул некорректный список просмотров");
   }
 
-  return data.filter(isWatchedRecord);
+  return data.filter(isRawWatchedRecord).map(normalizeRecord);
 }
 
 export async function findWatchedByFilmId(
@@ -106,7 +121,7 @@ export async function findWatchedByFilmId(
     throw new ApiError("invalid", "Сервер вернул некорректный ответ");
   }
 
-  return data.filter(isWatchedRecord);
+  return data.filter(isRawWatchedRecord).map(normalizeRecord);
 }
 
 async function deleteById(id: number): Promise<void> {
@@ -120,24 +135,41 @@ async function deleteById(id: number): Promise<void> {
   }
 }
 
+/**
+ * Создаёт или обновляет запись о просмотре. Для сериалов `episodes` —
+ * количество просмотренных серий; для фильмов параметр не передаётся.
+ */
 export async function markFilmAsWatched(
   filmId: string,
+  episodes?: number,
 ): Promise<WatchedRecord> {
   const existing = await findWatchedByFilmId(filmId);
   if (existing.length > 0) {
-    return existing[0];
+    const record = existing[0];
+    if (episodes === undefined || record.episodes === episodes) {
+      return record;
+    }
+
+    const updated = await request<unknown>(`${API_URL}/${record.id}`, {
+      method: "PATCH",
+      body: JSON.stringify({ episodes }),
+    });
+    if (!isRawWatchedRecord(updated)) {
+      return { ...record, episodes };
+    }
+    return normalizeRecord(updated);
   }
 
   const created = await request<unknown>(API_URL, {
     method: "POST",
-    body: JSON.stringify({ filmId }),
+    body: JSON.stringify(episodes === undefined ? { filmId } : { filmId, episodes }),
   });
 
-  if (!isWatchedRecord(created)) {
+  if (!isRawWatchedRecord(created)) {
     throw new ApiError("invalid", "Сервер вернул некорректную запись");
   }
 
-  return created;
+  return normalizeRecord(created);
 }
 
 export async function unmarkFilmAsWatched(

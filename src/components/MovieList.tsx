@@ -6,20 +6,24 @@ import { SectionProgress } from "./SectionProgress";
 interface MovieListProps {
   sections: SectionGroup[];
   watchedIds: ReadonlySet<string>;
+  episodesById: ReadonlyMap<string, number>;
   pendingIds: ReadonlySet<string>;
   collapsed: ReadonlySet<number>;
   onToggleSection: (section: number) => void;
   onToggleWatched: (id: string) => void;
+  onSetEpisodes: (id: string, count: number) => void;
   onOpen: (id: string) => void;
 }
 
 export function MovieList({
   sections,
   watchedIds,
+  episodesById,
   pendingIds,
   collapsed,
   onToggleSection,
   onToggleWatched,
+  onSetEpisodes,
   onOpen,
 }: MovieListProps) {
   if (sections.length === 0) {
@@ -53,8 +57,10 @@ export function MovieList({
                       key={movie.id}
                       movie={movie}
                       watched={watchedIds.has(movie.id)}
+                      watchedEpisodes={episodesById.get(movie.id) ?? 0}
                       pending={pendingIds.has(movie.id)}
                       onToggle={onToggleWatched}
+                      onSetEpisodes={onSetEpisodes}
                       onOpen={onOpen}
                     />
                   ))}

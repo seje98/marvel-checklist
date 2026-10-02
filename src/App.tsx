@@ -85,10 +85,12 @@ export default function App() {
           <MovieList
             sections={watchlist.sections}
             watchedIds={watchlist.watchedIds}
+            episodesById={watchlist.episodesById}
             pendingIds={watchlist.pendingIds}
             collapsed={watchlist.collapsed}
             onToggleSection={watchlist.toggleSection}
             onToggleWatched={watchlist.toggleWatched}
+            onSetEpisodes={watchlist.setEpisodes}
             onOpen={watchlist.openDetails}
           />
         )}
@@ -98,8 +100,10 @@ export default function App() {
         <MovieDetails
           movie={watchlist.selectedMovie}
           watched={watchlist.watchedIds.has(watchlist.selectedMovie.id)}
+          watchedEpisodes={watchlist.episodesById.get(watchlist.selectedMovie.id) ?? 0}
           pending={watchlist.pendingIds.has(watchlist.selectedMovie.id)}
           onToggle={watchlist.toggleWatched}
+          onSetEpisodes={watchlist.setEpisodes}
           onClose={watchlist.closeDetails}
         />
       ) : null}

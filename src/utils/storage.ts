@@ -4,10 +4,11 @@ import type {
   ImportanceFilter,
   PendingChange,
   TypeFilter,
+  WatchedEntry,
   WatchlistFilters,
 } from "../types/movie";
 
-export type WatchedCache = Record<string, number | null>;
+export type WatchedCache = Record<string, number | null | WatchedEntry>;
 
 function readJson<T>(key: string, fallback: T): T {
   try {
@@ -41,12 +42,28 @@ export function saveWatchedCache(cache: WatchedCache): void {
   writeJson(STORAGE_KEYS.watched, cache);
 }
 
-export function cacheFromMap(map: Map<string, number | null>): WatchedCache {
+export function cacheFromMap(map: Map<string, WatchedEntry>): WatchedCache {
   return Object.fromEntries(map.entries());
 }
 
-export function mapFromCache(cache: WatchedCache): Map<string, number | null> {
-  return new Map(Object.entries(cache));
+function isEpisodeCount(value: unknown): value is number {
+  return typeof value === "number" && Number.isInteger(value) && value >= 0;
+}
+
+export function mapFromCache(cache: WatchedCache): Map<string, WatchedEntry> {
+  const map = new Map<string, WatchedEntry>();
+  for (const [filmId, value] of Object.entries(cache)) {
+    // Старый формат кэша хранил только id записи (number | null).
+    if (typeof value === "number" || value === null) {
+      map.set(filmId, { recordId: value });
+    } else if (typeof value === "object") {
+      map.set(filmId, {
+        recordId: typeof value.recordId === "number" ? value.recordId : null,
+        ...(isEpisodeCount(value.episodes) ? { episodes: value.episodes } : {}),
+      });
+    }
+  }
+  return map;
 }
 
 export function loadQueue(): PendingChange[] {
@@ -58,7 +75,8 @@ export function loadQueue(): PendingChange[] {
     (item): item is PendingChange =>
       Boolean(item) &&
       typeof item.filmId === "string" &&
-      (item.action === "watch" || item.action === "unwatch"),
+      (item.action === "watch" || item.action === "unwatch") &&
+      (item.episodes === undefined || isEpisodeCount(item.episodes)),
   );
 }
 

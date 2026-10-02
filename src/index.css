@@ -873,6 +873,107 @@ h1::after {
   color: var(--warning);
 }
 
+.episode-counter {
+  position: relative;
+  z-index: 2;
+  max-width: 320px;
+  margin-top: 14px;
+}
+
+.details-card .episode-counter {
+  max-width: none;
+  margin-top: 18px;
+}
+
+.episode-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.episode-step {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  color: var(--text);
+  box-shadow: var(--inset-light);
+  transition:
+    background var(--duration-fast) ease,
+    opacity var(--duration-fast) ease,
+    transform var(--duration-press) var(--ease-out);
+}
+
+.episode-step svg {
+  width: 16px;
+  height: 16px;
+}
+
+.episode-step:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.episode-step:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.episode-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.episode-input {
+  width: 3.4rem;
+  min-height: 40px;
+  padding: 0 4px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--track-well);
+  box-shadow: var(--inset-shadow);
+  color: var(--text);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.episode-input:disabled {
+  opacity: 0.6;
+}
+
+.episode-total {
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.episode-track {
+  height: 6px;
+  margin-top: 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--track-well);
+  box-shadow: var(--inset-shadow);
+}
+
+@media (pointer: coarse) {
+  .episode-step {
+    width: 44px;
+    height: 44px;
+  }
+
+  .episode-input {
+    min-height: 44px;
+  }
+}
+
 .is-watched .movie-title,
 .is-future .movie-title {
   color: var(--text-muted);
