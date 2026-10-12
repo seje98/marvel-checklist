@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { DebugPanel } from "./components/DebugPanel";
 import { useMovies } from "./hooks/useMovies";
 import { useRealtime } from "./hooks/useRealtime";
 import { useRoute } from "./hooks/useRoute";
@@ -20,9 +21,14 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, [route]);
 
-  if (route === "list") {
-    return <ListEditorPage moviesState={moviesState} />;
-  }
-
-  return <WatchlistPage watchlist={watchlist} moviesState={moviesState} />;
+  return (
+    <>
+      {route === "list" ? (
+        <ListEditorPage moviesState={moviesState} />
+      ) : (
+        <WatchlistPage watchlist={watchlist} moviesState={moviesState} />
+      )}
+      <DebugPanel />
+    </>
+  );
 }

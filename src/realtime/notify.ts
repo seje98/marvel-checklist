@@ -1,4 +1,5 @@
 import { NOTIFY_URL } from "../config";
+import { debugLog } from "./debug";
 
 export type ChangeKind = "watched" | "movies";
 
@@ -18,13 +19,26 @@ export const CLIENT_ID = createClientId();
  */
 export function notifyChanged(kind: ChangeKind): void {
   if (!NOTIFY_URL) {
+    debugLog(`notify: «${kind}» не отправлен, VITE_NOTIFY_URL не задан`);
     return;
   }
+
+  debugLog(
+    `notify: отправляю «${kind}» (вкладка ${CLIENT_ID.slice(0, 6)}, ${document.visibilityState})`,
+  );
+  const startedAt = performance.now();
+  const elapsed = () => Math.round(performance.now() - startedAt);
 
   void fetch(NOTIFY_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ kind, clientId: CLIENT_ID }),
     keepalive: true,
-  }).catch(() => undefined);
+  }).then(
+    (response) => debugLog(`notify: HTTP ${response.status} за ${elapsed()} мс`),
+    (error) =>
+      debugLog(
+        `notify: ОШИБКА ${error instanceof Error ? error.message : String(error)} за ${elapsed()} мс`,
+      ),
+  );
 }
