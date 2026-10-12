@@ -118,7 +118,6 @@ export default {
       return json({ error: "invalid_kind" }, 400, headers);
     }
 
-    const startedAt = Date.now();
     try {
       const response = await publish(env, kind, clientId);
       if (!response.ok) {
@@ -128,7 +127,6 @@ export default {
       return json({ error: "pusher_unreachable" }, 502, headers);
     }
 
-    // publishMs помогает отличить медленный Worker от медленной сети клиента.
-    return json({ ok: true, publishMs: Date.now() - startedAt }, 200, headers);
+    return json({ ok: true }, 200, headers);
   },
 };
