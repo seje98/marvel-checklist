@@ -32,8 +32,6 @@ jobs:
 
       - name: Build
         run: npm run build:pages
-        env:
-          VITE_NOTIFY_URL: ${{ vars.VITE_NOTIFY_URL }}
 
       - name: Ensure .nojekyll
         run: touch dist/.nojekyll

@@ -4,7 +4,7 @@ import {
   markFilmAsWatched,
   unmarkFilmAsWatched,
 } from "../api/mokky";
-import { notifyChanged } from "../realtime/notify";
+import { notifyChanged } from "../realtime/channel";
 import type {
   CanonFilter,
   ImportanceFilter,

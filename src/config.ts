@@ -4,15 +4,12 @@ export const API_URL = `${API_BASE_URL}/watched`;
 export const MOVIES_URL = `${API_BASE_URL}/movies`;
 export const API_TIMEOUT_MS = 8000;
 
-// Pusher Channels: ключ и кластер публичные. Секрет хранится только в Worker.
-export const PUSHER_KEY = "f987127fca2394d2009a";
-export const PUSHER_CLUSTER = "eu";
-export const PUSHER_CHANNEL = "marvel-watchlist";
-export const PUSHER_EVENT = "changed";
-
-// Адрес Cloudflare Worker (например, https://marvel-watchlist-notify.<аккаунт>.workers.dev/notify).
-// Задаётся переменной VITE_NOTIFY_URL; без неё уведомления другим клиентам не отправляются.
-export const NOTIFY_URL: string = import.meta.env.VITE_NOTIFY_URL ?? "";
+// Supabase Realtime (Broadcast): мгновенные уведомления между устройствами.
+// Публичный ключ (publishable) предназначен для браузера, секретов здесь нет.
+export const SUPABASE_URL = "https://eycwbrbcchvedbgdlvkh.supabase.co";
+export const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_765fNHnLlzgIKVJ2gzl9Ww_jcJvq-oz";
+export const REALTIME_CHANNEL = "marvel-watchlist";
+export const REALTIME_EVENT = "changed";
 
 export const STORAGE_KEYS = {
   watched: "marvel-watchlist:watched",

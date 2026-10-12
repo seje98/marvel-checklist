@@ -7,7 +7,7 @@ import {
   updateMovie,
   updateMovieOrder,
 } from "../api/movies";
-import { notifyChanged } from "../realtime/notify";
+import { notifyChanged } from "../realtime/channel";
 import type { Movie } from "../types/movie";
 import { loadMoviesCache, saveMoviesCache } from "../utils/storage";
 
