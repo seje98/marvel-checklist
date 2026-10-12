@@ -10,8 +10,12 @@ import { debugLog } from "../realtime/debug";
 import { CLIENT_ID, type ChangeKind } from "../realtime/notify";
 
 const DEBOUNCE_MS = 150;
+const POLL_WATCHED_MS = 8000;
+const POLL_MOVIES_MS = 30000;
 
 type Handlers = Record<ChangeKind, () => void | Promise<unknown>>;
+/** Опрос возвращает true, если нашёл изменения. */
+type Polls = Record<ChangeKind, () => Promise<boolean>>;
 
 function isChangeKind(value: unknown): value is ChangeKind {
   return value === "watched" || value === "movies";
@@ -21,9 +25,41 @@ function isChangeKind(value: unknown): value is ChangeKind {
  * Подписка на события Pusher. По событию вызывается соответствующий refetch:
  * источником правды остаётся Mokky, Pusher только сообщает об изменениях.
  */
-export function useRealtime(handlers: Handlers): void {
+export function useRealtime(handlers: Handlers, polls: Polls): void {
   const handlersRef = useRef(handlers);
   handlersRef.current = handlers;
+  const pollsRef = useRef(polls);
+  pollsRef.current = polls;
+
+  // Запасной канал: уведомления с телефона могут не доходить до Worker
+  // (сеть, провайдер), поэтому данные ещё и периодически сверяются с Mokky.
+  useEffect(() => {
+    const run = async (kind: ChangeKind) => {
+      if (document.visibilityState !== "visible") {
+        return;
+      }
+      if (await pollsRef.current[kind]()) {
+        debugLog(`опрос «${kind}»: найдены изменения`);
+      }
+    };
+
+    const timers = [
+      window.setInterval(() => void run("watched"), POLL_WATCHED_MS),
+      window.setInterval(() => void run("movies"), POLL_MOVIES_MS),
+    ];
+    const onVisible = () => {
+      if (document.visibilityState === "visible") {
+        void run("watched");
+        void run("movies");
+      }
+    };
+    document.addEventListener("visibilitychange", onVisible);
+
+    return () => {
+      timers.forEach((timer) => window.clearInterval(timer));
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, []);
 
   useEffect(() => {
     let disposed = false;

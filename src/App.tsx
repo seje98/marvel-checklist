@@ -12,10 +12,16 @@ export default function App() {
   const moviesState = useMovies();
   const watchlist = useWatchlist(moviesState.movies, moviesState.movieById);
 
-  useRealtime({
-    watched: watchlist.retrySync,
-    movies: moviesState.refresh,
-  });
+  useRealtime(
+    {
+      watched: watchlist.retrySync,
+      movies: moviesState.refresh,
+    },
+    {
+      watched: watchlist.pollWatched,
+      movies: moviesState.poll,
+    },
+  );
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });

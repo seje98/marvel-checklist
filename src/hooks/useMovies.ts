@@ -53,6 +53,8 @@ export function useMovies() {
 
   const moviesRef = useRef(movies);
   const mutationRef = useRef<Promise<unknown>>(Promise.resolve());
+  const activeMutationsRef = useRef(0);
+  const mutationEpochRef = useRef(0);
 
   const applyMovies = useCallback((next: Movie[]) => {
     const sorted = sortByOrder(next);
@@ -106,12 +108,41 @@ export function useMovies() {
           throw failure;
         }
       };
+      activeMutationsRef.current += 1;
+      mutationEpochRef.current += 1;
       const run = mutationRef.current.then(guarded, guarded);
-      mutationRef.current = run.catch(() => undefined);
+      mutationRef.current = run
+        .catch(() => undefined)
+        .then(() => {
+          activeMutationsRef.current -= 1;
+          mutationEpochRef.current += 1;
+        });
       return run;
     },
     [refresh],
   );
+
+  /**
+   * Тихая сверка для периодического опроса: без сообщений об ошибках.
+   * Пропускается во время правок, а устаревший ответ отбрасывается.
+   */
+  const poll = useCallback(async (): Promise<boolean> => {
+    if (activeMutationsRef.current > 0) {
+      return false;
+    }
+    const epoch = mutationEpochRef.current;
+    try {
+      const fresh = await getMovies();
+      if (activeMutationsRef.current > 0 || epoch !== mutationEpochRef.current) {
+        return false;
+      }
+      const before = moviesRef.current;
+      applyMovies(fresh);
+      return moviesRef.current !== before;
+    } catch {
+      return false;
+    }
+  }, [applyMovies]);
 
   /** Присваивает порядок 1..n и отправляет только изменившиеся записи. */
   const renumber = useCallback(
@@ -253,6 +284,7 @@ export function useMovies() {
     loading,
     error,
     refresh,
+    poll,
     saveMovie,
     moveMovie,
     removeMovie,

@@ -98,6 +98,8 @@ export function useWatchlist(
   const queueRef = useRef<PendingChange[]>(loadQueue());
   const flushRef = useRef<Promise<boolean> | null>(null);
   const episodesTimerRef = useRef(0);
+  // Растёт при каждой локальной записи: устаревший ответ опроса отбрасывается.
+  const writeEpochRef = useRef(0);
   const pendingRef = useRef(new Set<string>());
   const [pendingIds, setPendingIds] = useState<ReadonlySet<string>>(() => new Set());
 
@@ -134,8 +136,9 @@ export function useWatchlist(
     setToasts((current) => current.filter((toast) => toast.id !== id));
   }, []);
 
+  /** Применяет серверное состояние; возвращает true, если что-то изменилось. */
   const applyRemoteWatched = useCallback(
-    (records: { id: number; filmId: string; episodes?: number }[]) => {
+    (records: { id: number; filmId: string; episodes?: number }[]): boolean => {
       let next = new Map<string, WatchedEntry>();
       for (const record of records) {
         if (!next.has(record.filmId)) {
@@ -149,9 +152,25 @@ export function useWatchlist(
       for (const change of queueRef.current) {
         next = applyChangeToMap(next, change);
       }
+      const current = watchedMapRef.current;
+      const unchanged =
+        current.size === next.size &&
+        [...next].every(([filmId, entry]) => {
+          const old = current.get(filmId);
+          return (
+            old !== undefined &&
+            old.recordId === entry.recordId &&
+            old.episodes === entry.episodes
+          );
+        });
+      if (unchanged) {
+        return false;
+      }
+
       watchedMapRef.current = next;
       setWatchedMap(next);
       saveWatchedCache(cacheFromMap(next));
+      return true;
     },
     [],
   );
@@ -205,6 +224,7 @@ export function useWatchlist(
         setUsingLocal(true);
         return false;
       } finally {
+        writeEpochRef.current += 1;
         if (sent) {
           notifyChanged("watched");
         }
@@ -248,6 +268,31 @@ export function useWatchlist(
   useEffect(() => {
     void refreshFromApi();
   }, [refreshFromApi]);
+
+  /**
+   * Тихая сверка с сервером для периодического опроса: без индикатора
+   * синхронизации и сообщений об ошибках. Пропускается, пока есть
+   * неотправленные изменения, а ответ, обогнанный локальной записью, отбрасывается.
+   */
+  const pollWatched = useCallback(async (): Promise<boolean> => {
+    if (flushRef.current || queueRef.current.length > 0) {
+      return false;
+    }
+    const epoch = writeEpochRef.current;
+    try {
+      const records = await getWatchedFilms();
+      if (
+        epoch !== writeEpochRef.current ||
+        flushRef.current ||
+        queueRef.current.length > 0
+      ) {
+        return false;
+      }
+      return applyRemoteWatched(records);
+    } catch {
+      return false;
+    }
+  }, [applyRemoteWatched]);
 
   useEffect(() => {
     const onOnline = () => {
@@ -294,6 +339,7 @@ export function useWatchlist(
 
   const commitChange = useCallback(
     (change: PendingChange) => {
+      writeEpochRef.current += 1;
       updateWatchedMap((current) => applyChangeToMap(current, change));
       queueRef.current = enqueueChange(queueRef.current, change);
       saveQueue(queueRef.current);
@@ -538,5 +584,6 @@ export function useWatchlist(
       }
     },
     retrySync: refreshFromApi,
+    pollWatched,
   };
 }
