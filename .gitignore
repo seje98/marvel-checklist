@@ -3,6 +3,7 @@ dist
 dist-ssr
 *.local
 *.tsbuildinfo
+scripts/movies.mokky.json
 
 .DS_Store
 .idea

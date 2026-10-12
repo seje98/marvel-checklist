@@ -32,9 +32,16 @@ jobs:
 
       - name: Build
         run: npm run build:pages
+        env:
+          VITE_NOTIFY_URL: ${{ vars.VITE_NOTIFY_URL }}
 
       - name: Ensure .nojekyll
         run: touch dist/.nojekyll
+
+      # GitHub Pages отдаёт 404.html для неизвестных путей, например /list.
+      # Копия index.html позволяет приложению открыть нужную страницу.
+      - name: SPA fallback
+        run: cp dist/index.html dist/404.html
 
       - name: Publish dist to gh-pages
         uses: JamesIves/github-pages-deploy-action@v4

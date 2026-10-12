@@ -1,0 +1,13 @@
+name = "marvel-watchlist-notify"
+main = "index.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+PUSHER_APP_ID = "2201637"
+PUSHER_KEY = "f987127fca2394d2009a"
+PUSHER_CLUSTER = "eu"
+# Допустимые источники запросов (только origin, без пути), через запятую.
+ALLOWED_ORIGINS = "https://seje98.github.io,http://localhost:5173,http://127.0.0.1:5173"
+
+# Секрет задаётся командой и в репозиторий не попадает:
+#   npx wrangler secret put PUSHER_APP_SECRET

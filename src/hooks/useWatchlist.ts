@@ -4,7 +4,7 @@ import {
   markFilmAsWatched,
   unmarkFilmAsWatched,
 } from "../api/mokky";
-import moviesData from "../data/movies.json";
+import { notifyChanged } from "../realtime/notify";
 import type {
   CanonFilter,
   ImportanceFilter,
@@ -46,9 +46,6 @@ import {
   saveWatchedCache,
 } from "../utils/storage";
 
-const movies = moviesData as Movie[];
-const movieById = new Map(movies.map((movie) => [movie.id, movie]));
-
 const EPISODES_SYNC_DELAY_MS = 600;
 
 let toastSeq = 1;
@@ -78,7 +75,10 @@ function applyChangeToMap(
   return next;
 }
 
-export function useWatchlist() {
+export function useWatchlist(
+  movies: Movie[],
+  movieById: ReadonlyMap<string, Movie>,
+) {
   const [watchedMap, setWatchedMap] = useState<Map<string, WatchedEntry>>(
     () => mapFromCache(loadWatchedCache()),
   );
@@ -168,6 +168,7 @@ export function useWatchlist() {
 
     const run = (async () => {
       setSyncStatus("syncing");
+      let sent = false;
       try {
         while (queueRef.current.length > 0) {
           const change = queueRef.current[0];
@@ -193,6 +194,7 @@ export function useWatchlist() {
 
           queueRef.current = queueRef.current.filter((item) => item !== change);
           saveQueue(queueRef.current);
+          sent = true;
         }
 
         setUsingLocal(false);
@@ -203,6 +205,9 @@ export function useWatchlist() {
         setUsingLocal(true);
         return false;
       } finally {
+        if (sent) {
+          notifyChanged("watched");
+        }
         flushRef.current = null;
       }
     })();
@@ -285,7 +290,7 @@ export function useWatchlist() {
       }
     }
     return { watchedIds: ids, episodesById: episodes as ReadonlyMap<string, number> };
-  }, [watchedMap]);
+  }, [movieById, watchedMap]);
 
   const commitChange = useCallback(
     (change: PendingChange) => {
@@ -352,7 +357,7 @@ export function useWatchlist() {
         setPendingIds(new Set(pendingRef.current));
       }
     },
-    [commitChange, flushQueue, pushToast, syncStatus],
+    [commitChange, flushQueue, movieById, pushToast, syncStatus],
   );
 
   const setEpisodes = useCallback(
@@ -395,7 +400,7 @@ export function useWatchlist() {
         });
       }, EPISODES_SYNC_DELAY_MS);
     },
-    [commitChange, flushQueue, pushToast],
+    [commitChange, flushQueue, movieById, pushToast],
   );
 
   useEffect(() => () => window.clearTimeout(episodesTimerRef.current), []);
@@ -414,6 +419,7 @@ export function useWatchlist() {
       filters.importance,
       filters.status,
       filters.type,
+      movies,
       query,
       watchedIds,
     ],
@@ -424,15 +430,15 @@ export function useWatchlist() {
     [filteredMovies],
   );
 
-  const allSections = useMemo(() => groupBySection(movies), []);
+  const allSections = useMemo(() => groupBySection(movies), [movies]);
   const overall = useMemo(
     () => getProgress(movies, watchedIds),
-    [watchedIds],
+    [movies, watchedIds],
   );
 
   const selectedMovie = useMemo(
-    () => movies.find((movie) => movie.id === selectedId) ?? null,
-    [selectedId],
+    () => (selectedId ? (movieById.get(selectedId) ?? null) : null),
+    [movieById, selectedId],
   );
 
   const filtersActive = hasActiveFilters(

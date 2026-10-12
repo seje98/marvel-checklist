@@ -1,4 +1,11 @@
-export function Header() {
+import type { Route } from "../hooks/useRoute";
+import { RouteLink } from "./RouteLink";
+
+interface HeaderProps {
+  link?: { route: Route; label: string };
+}
+
+export function Header({ link }: HeaderProps) {
   return (
     <header className="site-header">
       <div className="header-copy">
@@ -10,6 +17,11 @@ export function Header() {
           Хронология Marvel: смотрите по порядку и пропускайте необязательное.
         </p>
       </div>
+      {link ? (
+        <RouteLink className="ghost-btn header-link" route={link.route}>
+          {link.label}
+        </RouteLink>
+      ) : null}
     </header>
   );
 }

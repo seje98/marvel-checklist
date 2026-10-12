@@ -119,7 +119,7 @@ export function MovieDetails({
           <dd>{TYPE_LABELS[movie.type]}</dd>
           {hasEpisodes(movie) ? (
             <>
-              <dt>?????</dt>
+              <dt>Серии</dt>
               <dd>{formatEpisodes(movie)}</dd>
             </>
           ) : null}

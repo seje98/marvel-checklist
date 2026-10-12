@@ -434,20 +434,8 @@
     "sectionTitle": "Основная MCU: 2008–2014"
   },
   {
-    "id": "thor-dark-world-2013",
-    "order": 34,
-    "title": "Тор 2: Царство тьмы",
-    "originalTitle": "Thor: The Dark World",
-    "timeline": "2013",
-    "releaseYear": 2013,
-    "type": "movie",
-    "tags": ["required"],
-    "section": 8,
-    "sectionTitle": "Основная MCU: 2008–2014"
-  },
-  {
     "id": "agents-of-shield-s1-e01-e07",
-    "order": 35,
+    "order": 34,
     "title": "Агенты Щ.И.Т.",
     "originalTitle": "Agents of S.H.I.E.L.D.",
     "timeline": "2013–2014",
@@ -461,8 +449,33 @@
     "sectionTitle": "Основная MCU: 2008–2014"
   },
   {
-    "id": "captain-america-winter-soldier-2014",
+    "id": "thor-dark-world-2013",
+    "order": 35,
+    "title": "Тор 2: Царство тьмы",
+    "originalTitle": "Thor: The Dark World",
+    "timeline": "2013",
+    "releaseYear": 2013,
+    "type": "movie",
+    "tags": ["required"],
+    "section": 8,
+    "sectionTitle": "Основная MCU: 2008–2014"
+  },
+  {
+    "id": "agents-of-shield-s1-e08-e16",
     "order": 36,
+    "title": "Агенты Щ.И.Т.",
+    "originalTitle": "Agents of S.H.I.E.L.D.",
+    "timeline": "2014",
+    "type": "series",
+    "season": "S1 E08–E16",
+    "episodes": 9,
+    "tags": ["tv", "legacy", "required"],
+    "section": 8,
+    "sectionTitle": "Основная MCU: 2008–2014"
+  },
+  {
+    "id": "captain-america-winter-soldier-2014",
+    "order": 37,
     "title": "Первый мститель: Другая война",
     "originalTitle": "Captain America: The Winter Soldier",
     "timeline": "2014",
@@ -473,21 +486,21 @@
     "sectionTitle": "Основная MCU: 2008–2014"
   },
   {
-    "id": "agents-of-shield-s1-e08-e22",
-    "order": 37,
+    "id": "agents-of-shield-s1-e17-e22",
+    "order": 38,
     "title": "Агенты Щ.И.Т.",
     "originalTitle": "Agents of S.H.I.E.L.D.",
     "timeline": "2014",
     "type": "series",
-    "season": "S1 E08–E22",
-    "episodes": 15,
+    "season": "S1 E17–E22",
+    "episodes": 6,
     "tags": ["tv", "legacy", "required"],
     "section": 8,
     "sectionTitle": "Основная MCU: 2008–2014"
   },
   {
     "id": "guardians-of-the-galaxy-2014",
-    "order": 38,
+    "order": 39,
     "title": "Стражи Галактики",
     "originalTitle": "Guardians of the Galaxy",
     "timeline": "2014",
@@ -499,7 +512,7 @@
   },
   {
     "id": "guardians-of-the-galaxy-2-2017",
-    "order": 39,
+    "order": 40,
     "title": "Стражи Галактики. Часть 2",
     "originalTitle": "Guardians of the Galaxy Vol. 2",
     "timeline": "2014",
@@ -511,7 +524,7 @@
   },
   {
     "id": "i-am-groot-s1",
-    "order": 40,
+    "order": 41,
     "title": "Я есть Грут",
     "originalTitle": "I Am Groot",
     "timeline": "2014",
@@ -525,7 +538,7 @@
   },
   {
     "id": "i-am-groot-s2",
-    "order": 41,
+    "order": 42,
     "title": "Я есть Грут",
     "originalTitle": "I Am Groot",
     "timeline": "2014",
@@ -539,7 +552,7 @@
   },
   {
     "id": "agents-of-shield-s2-e01-e19",
-    "order": 42,
+    "order": 43,
     "title": "Агенты Щ.И.Т.",
     "originalTitle": "Agents of S.H.I.E.L.D.",
     "timeline": "2014–2015",
@@ -552,7 +565,7 @@
   },
   {
     "id": "avengers-age-of-ultron-2015",
-    "order": 43,
+    "order": 44,
     "title": "Мстители: Эра Альтрона",
     "originalTitle": "Avengers: Age of Ultron",
     "timeline": "2015",
@@ -564,7 +577,7 @@
   },
   {
     "id": "agents-of-shield-s2-e20-e22",
-    "order": 44,
+    "order": 45,
     "title": "Агенты Щ.И.Т.",
     "originalTitle": "Agents of S.H.I.E.L.D.",
     "timeline": "2015",
@@ -577,7 +590,7 @@
   },
   {
     "id": "ant-man-2015",
-    "order": 45,
+    "order": 46,
     "title": "Человек-муравей",
     "originalTitle": "Ant-Man",
     "timeline": "2015",
@@ -589,7 +602,7 @@
   },
   {
     "id": "daredevil-s1",
-    "order": 46,
+    "order": 47,
     "title": "Сорвиголова",
     "originalTitle": "Daredevil",
     "timeline": "2015",
@@ -604,7 +617,7 @@
   },
   {
     "id": "jessica-jones-s1",
-    "order": 47,
+    "order": 48,
     "title": "Джессика Джонс",
     "originalTitle": "Jessica Jones",
     "timeline": "2015",
@@ -619,7 +632,7 @@
   },
   {
     "id": "daredevil-s2",
-    "order": 48,
+    "order": 49,
     "title": "Сорвиголова",
     "originalTitle": "Daredevil",
     "timeline": "2016",
@@ -634,7 +647,7 @@
   },
   {
     "id": "luke-cage-s1",
-    "order": 49,
+    "order": 50,
     "title": "Люк Кейдж",
     "originalTitle": "Luke Cage",
     "timeline": "2016",
@@ -649,7 +662,7 @@
   },
   {
     "id": "iron-fist-s1",
-    "order": 50,
+    "order": 51,
     "title": "Железный кулак",
     "originalTitle": "Iron Fist",
     "timeline": "2016",
@@ -664,7 +677,7 @@
   },
   {
     "id": "the-defenders-2017",
-    "order": 51,
+    "order": 52,
     "title": "Защитники",
     "originalTitle": "The Defenders",
     "timeline": "2016",
@@ -678,7 +691,7 @@
   },
   {
     "id": "the-punisher-s1",
-    "order": 52,
+    "order": 53,
     "title": "Каратель",
     "originalTitle": "The Punisher",
     "timeline": "2017",
@@ -693,7 +706,7 @@
   },
   {
     "id": "agents-of-shield-s3-e01-e19",
-    "order": 53,
+    "order": 54,
     "title": "Агенты Щ.И.Т.",
     "originalTitle": "Agents of S.H.I.E.L.D.",
     "timeline": "2015–2016",
@@ -706,7 +719,7 @@
   },
   {
     "id": "captain-america-civil-war-2016",
-    "order": 54,
+    "order": 55,
     "title": "Первый мститель: Противостояние",
     "originalTitle": "Captain America: Civil War",
     "timeline": "2016",
@@ -718,7 +731,7 @@
   },
   {
     "id": "agents-of-shield-s3-e20-e22",
-    "order": 55,
+    "order": 56,
     "title": "Агенты Щ.И.Т.",
     "originalTitle": "Agents of S.H.I.E.L.D.",
     "timeline": "2016",
@@ -731,7 +744,7 @@
   },
   {
     "id": "black-widow-2021",
-    "order": 56,
+    "order": 57,
     "title": "Чёрная вдова",
     "originalTitle": "Black Widow",
     "timeline": "2016",
@@ -744,7 +757,7 @@
   },
   {
     "id": "black-panther-2018",
-    "order": 57,
+    "order": 58,
     "title": "Чёрная пантера",
     "originalTitle": "Black Panther",
     "timeline": "2016",
@@ -756,7 +769,7 @@
   },
   {
     "id": "spider-man-homecoming-2017",
-    "order": 58,
+    "order": 59,
     "title": "Человек-паук: Возвращение домой",
     "originalTitle": "Spider-Man: Homecoming",
     "timeline": "2016",
@@ -768,7 +781,7 @@
   },
   {
     "id": "doctor-strange-2016",
-    "order": 59,
+    "order": 60,
     "title": "Доктор Стрэндж",
     "originalTitle": "Doctor Strange",
     "timeline": "2016–2017",
@@ -780,7 +793,7 @@
   },
   {
     "id": "agents-of-shield-s4",
-    "order": 60,
+    "order": 61,
     "title": "Агенты Щ.И.Т.",
     "originalTitle": "Agents of S.H.I.E.L.D.",
     "timeline": "2016–2017",
@@ -793,7 +806,7 @@
   },
   {
     "id": "agents-of-shield-slingshot",
-    "order": 61,
+    "order": 62,
     "title": "Агенты Щ.И.Т.: Slingshot",
     "originalTitle": "Agents of S.H.I.E.L.D.: Slingshot",
     "timeline": "2016",
@@ -806,7 +819,7 @@
   },
   {
     "id": "inhumans-s1",
-    "order": 62,
+    "order": 63,
     "title": "Нелюди",
     "originalTitle": "Inhumans",
     "timeline": "2016",
@@ -821,7 +834,7 @@
   },
   {
     "id": "jessica-jones-s2",
-    "order": 63,
+    "order": 64,
     "title": "Джессика Джонс",
     "originalTitle": "Jessica Jones",
     "timeline": "2017",
@@ -834,7 +847,7 @@
   },
   {
     "id": "luke-cage-s2",
-    "order": 64,
+    "order": 65,
     "title": "Люк Кейдж",
     "originalTitle": "Luke Cage",
     "timeline": "2017",
@@ -847,7 +860,7 @@
   },
   {
     "id": "iron-fist-s2",
-    "order": 65,
+    "order": 66,
     "title": "Железный кулак",
     "originalTitle": "Iron Fist",
     "timeline": "2017",
@@ -860,7 +873,7 @@
   },
   {
     "id": "the-punisher-s2",
-    "order": 66,
+    "order": 67,
     "title": "Каратель",
     "originalTitle": "The Punisher",
     "timeline": "2017–2018",
@@ -873,7 +886,7 @@
   },
   {
     "id": "daredevil-s3",
-    "order": 67,
+    "order": 68,
     "title": "Сорвиголова",
     "originalTitle": "Daredevil",
     "timeline": "2017",
@@ -886,7 +899,7 @@
   },
   {
     "id": "jessica-jones-s3",
-    "order": 68,
+    "order": 69,
     "title": "Джессика Джонс",
     "originalTitle": "Jessica Jones",
     "timeline": "2018",
@@ -899,7 +912,7 @@
   },
   {
     "id": "thor-ragnarok-2017",
-    "order": 69,
+    "order": 70,
     "title": "Тор: Рагнарёк",
     "originalTitle": "Thor: Ragnarok",
     "timeline": "2017",
@@ -911,7 +924,7 @@
   },
   {
     "id": "team-thor-part-1",
-    "order": 70,
+    "order": 71,
     "title": "Команда Тора: Часть 1",
     "originalTitle": "Team Thor",
     "timeline": "2016/2017",
@@ -922,7 +935,7 @@
   },
   {
     "id": "team-thor-part-2",
-    "order": 71,
+    "order": 72,
     "title": "Команда Тора: Часть 2",
     "originalTitle": "Team Thor: Part 2",
     "timeline": "2017",
@@ -933,7 +946,7 @@
   },
   {
     "id": "team-darryl",
-    "order": 72,
+    "order": 73,
     "title": "Команда Дэррила",
     "originalTitle": "Team Darryl",
     "timeline": "2017",
@@ -944,7 +957,7 @@
   },
   {
     "id": "cloak-and-dagger-s1",
-    "order": 73,
+    "order": 74,
     "title": "Плащ и Кинжал",
     "originalTitle": "Cloak & Dagger",
     "timeline": "2017",
@@ -959,7 +972,7 @@
   },
   {
     "id": "runaways-s1",
-    "order": 74,
+    "order": 75,
     "title": "Беглецы",
     "originalTitle": "Runaways",
     "timeline": "2017",
@@ -974,7 +987,7 @@
   },
   {
     "id": "cloak-and-dagger-s2",
-    "order": 75,
+    "order": 76,
     "title": "Плащ и Кинжал",
     "originalTitle": "Cloak & Dagger",
     "timeline": "2018",
@@ -987,7 +1000,7 @@
   },
   {
     "id": "runaways-s2",
-    "order": 76,
+    "order": 77,
     "title": "Беглецы",
     "originalTitle": "Runaways",
     "timeline": "2018",
@@ -1000,7 +1013,7 @@
   },
   {
     "id": "runaways-s3",
-    "order": 77,
+    "order": 78,
     "title": "Беглецы",
     "originalTitle": "Runaways",
     "timeline": "2019",
@@ -1013,7 +1026,7 @@
   },
   {
     "id": "agents-of-shield-s5-e01-e19",
-    "order": 78,
+    "order": 79,
     "title": "Агенты Щ.И.Т.",
     "originalTitle": "Agents of S.H.I.E.L.D.",
     "timeline": "2017–2018",
@@ -1026,7 +1039,7 @@
   },
   {
     "id": "ant-man-and-the-wasp-2018",
-    "order": 79,
+    "order": 80,
     "title": "Человек-муравей и Оса",
     "originalTitle": "Ant-Man and the Wasp",
     "timeline": "2018",
@@ -1039,7 +1052,7 @@
   },
   {
     "id": "avengers-infinity-war-2018",
-    "order": 80,
+    "order": 81,
     "title": "Мстители: Война бесконечности",
     "originalTitle": "Avengers: Infinity War",
     "timeline": "2018",
@@ -1051,7 +1064,7 @@
   },
   {
     "id": "agents-of-shield-s5-e20-e22",
-    "order": 81,
+    "order": 82,
     "title": "Агенты Щ.И.Т.",
     "originalTitle": "Agents of S.H.I.E.L.D.",
     "timeline": "2018",
@@ -1064,7 +1077,7 @@
   },
   {
     "id": "avengers-endgame-2019",
-    "order": 82,
+    "order": 83,
     "title": "Мстители: Финал",
     "originalTitle": "Avengers: Endgame",
     "timeline": "2018–2023",
@@ -1077,7 +1090,7 @@
   },
   {
     "id": "agents-of-shield-s6",
-    "order": 83,
+    "order": 84,
     "title": "Агенты Щ.И.Т.",
     "originalTitle": "Agents of S.H.I.E.L.D.",
     "timeline": "2019",
@@ -1090,7 +1103,7 @@
   },
   {
     "id": "agents-of-shield-s7",
-    "order": 84,
+    "order": 85,
     "title": "Агенты Щ.И.Т.",
     "originalTitle": "Agents of S.H.I.E.L.D.",
     "timeline": "1931–1983 / 2019",
@@ -1104,7 +1117,7 @@
   },
   {
     "id": "loki-s1",
-    "order": 85,
+    "order": 86,
     "title": "Локи",
     "originalTitle": "Loki",
     "timeline": "вне обычной временной линии",
@@ -1119,7 +1132,7 @@
   },
   {
     "id": "what-if-s1",
-    "order": 86,
+    "order": 87,
     "title": "Что, если...?",
     "originalTitle": "What If...?",
     "timeline": "альтернативные реальности",
@@ -1133,7 +1146,7 @@
   },
   {
     "id": "loki-s2",
-    "order": 87,
+    "order": 88,
     "title": "Локи",
     "originalTitle": "Loki",
     "timeline": "вне обычного времени",
@@ -1147,7 +1160,7 @@
   },
   {
     "id": "what-if-s2",
-    "order": 88,
+    "order": 89,
     "title": "Что, если...?",
     "originalTitle": "What If...?",
     "timeline": "альтернативные реальности",
@@ -1161,7 +1174,7 @@
   },
   {
     "id": "what-if-s3",
-    "order": 89,
+    "order": 90,
     "title": "Что, если...?",
     "originalTitle": "What If...?",
     "timeline": "альтернативные реальности",
@@ -1175,7 +1188,7 @@
   },
   {
     "id": "marvel-zombies-2025",
-    "order": 90,
+    "order": 91,
     "title": "Зомби Marvel",
     "originalTitle": "Marvel Zombies",
     "timeline": "альтернативная реальность",
@@ -1189,7 +1202,7 @@
   },
   {
     "id": "friendly-neighborhood-spider-man-s1",
-    "order": 91,
+    "order": 92,
     "title": "Ваш дружелюбный сосед Человек-паук",
     "originalTitle": "Your Friendly Neighborhood Spider-Man",
     "timeline": "альтернативная Земля",
@@ -1203,7 +1216,7 @@
   },
   {
     "id": "friendly-neighborhood-spider-man-s2",
-    "order": 92,
+    "order": 93,
     "title": "Ваш дружелюбный сосед Человек-паук",
     "originalTitle": "Your Friendly Neighborhood Spider-Man",
     "timeline": "альтернативная Земля",
@@ -1217,7 +1230,7 @@
   },
   {
     "id": "wandavision-2021",
-    "order": 93,
+    "order": 94,
     "title": "Ванда/Вижн",
     "originalTitle": "WandaVision",
     "timeline": "2023",
@@ -1231,7 +1244,7 @@
   },
   {
     "id": "falcon-and-winter-soldier-2021",
-    "order": 94,
+    "order": 95,
     "title": "Сокол и Зимний солдат",
     "originalTitle": "The Falcon and the Winter Soldier",
     "timeline": "2024",
@@ -1244,7 +1257,7 @@
   },
   {
     "id": "shang-chi-2021",
-    "order": 95,
+    "order": 96,
     "title": "Шан-Чи и легенда десяти колец",
     "originalTitle": "Shang-Chi and the Legend of the Ten Rings",
     "timeline": "2024",
@@ -1256,7 +1269,7 @@
   },
   {
     "id": "eternals-2021",
-    "order": 96,
+    "order": 97,
     "title": "Вечные",
     "originalTitle": "Eternals",
     "timeline": "2024",
@@ -1268,7 +1281,7 @@
   },
   {
     "id": "spider-man-far-from-home-2019",
-    "order": 97,
+    "order": 98,
     "title": "Человек-паук: Вдали от дома",
     "originalTitle": "Spider-Man: Far From Home",
     "timeline": "2024",
@@ -1280,7 +1293,7 @@
   },
   {
     "id": "spider-man-no-way-home-2021",
-    "order": 98,
+    "order": 99,
     "title": "Человек-паук: Нет пути домой",
     "originalTitle": "Spider-Man: No Way Home",
     "timeline": "2024",
@@ -1294,7 +1307,7 @@
   },
   {
     "id": "hawkeye-2021",
-    "order": 99,
+    "order": 100,
     "title": "Соколиный глаз",
     "originalTitle": "Hawkeye",
     "timeline": "2024",
@@ -1307,7 +1320,7 @@
   },
   {
     "id": "doctor-strange-multiverse-of-madness-2022",
-    "order": 100,
+    "order": 101,
     "title": "Доктор Стрэндж: В мультивселенной безумия",
     "originalTitle": "Doctor Strange in the Multiverse of Madness",
     "timeline": "2025",
@@ -1319,7 +1332,7 @@
   },
   {
     "id": "moon-knight-2022",
-    "order": 101,
+    "order": 102,
     "title": "Лунный рыцарь",
     "originalTitle": "Moon Knight",
     "timeline": "2025",
@@ -1332,7 +1345,7 @@
   },
   {
     "id": "ms-marvel-2022",
-    "order": 102,
+    "order": 103,
     "title": "Мисс Марвел",
     "originalTitle": "Ms. Marvel",
     "timeline": "2025",
@@ -1345,7 +1358,7 @@
   },
   {
     "id": "thor-love-and-thunder-2022",
-    "order": 103,
+    "order": 104,
     "title": "Тор: Любовь и гром",
     "originalTitle": "Thor: Love and Thunder",
     "timeline": "2025",
@@ -1357,7 +1370,7 @@
   },
   {
     "id": "she-hulk-2022",
-    "order": 104,
+    "order": 105,
     "title": "Женщина-Халк",
     "originalTitle": "She-Hulk: Attorney at Law",
     "timeline": "2025",
@@ -1370,7 +1383,7 @@
   },
   {
     "id": "werewolf-by-night-2022",
-    "order": 105,
+    "order": 106,
     "title": "Ночной оборотень",
     "originalTitle": "Werewolf by Night",
     "timeline": "2025",
@@ -1382,7 +1395,7 @@
   },
   {
     "id": "gotg-holiday-special-2022",
-    "order": 106,
+    "order": 107,
     "title": "Праздничный спецвыпуск Стражей Галактики",
     "originalTitle": "The Guardians of the Galaxy Holiday Special",
     "timeline": "2025",
@@ -1394,7 +1407,7 @@
   },
   {
     "id": "black-panther-wakanda-forever-2022",
-    "order": 107,
+    "order": 108,
     "title": "Чёрная пантера: Ваканда навеки",
     "originalTitle": "Black Panther: Wakanda Forever",
     "timeline": "2025",
@@ -1406,7 +1419,7 @@
   },
   {
     "id": "ant-man-quantumania-2023",
-    "order": 108,
+    "order": 109,
     "title": "Человек-муравей и Оса: Квантомания",
     "originalTitle": "Ant-Man and the Wasp: Quantumania",
     "timeline": "2026",
@@ -1418,7 +1431,7 @@
   },
   {
     "id": "guardians-of-the-galaxy-3-2023",
-    "order": 109,
+    "order": 110,
     "title": "Стражи Галактики. Часть 3",
     "originalTitle": "Guardians of the Galaxy Vol. 3",
     "timeline": "2026",
@@ -1430,7 +1443,7 @@
   },
   {
     "id": "secret-invasion-2023",
-    "order": 110,
+    "order": 111,
     "title": "Секретное вторжение",
     "originalTitle": "Secret Invasion",
     "timeline": "2026",
@@ -1443,7 +1456,7 @@
   },
   {
     "id": "the-marvels-2023",
-    "order": 111,
+    "order": 112,
     "title": "Марвелы",
     "originalTitle": "The Marvels",
     "timeline": "2026",
@@ -1455,7 +1468,7 @@
   },
   {
     "id": "echo-2024",
-    "order": 112,
+    "order": 113,
     "title": "Эхо",
     "originalTitle": "Echo",
     "timeline": "2025",
@@ -1468,7 +1481,7 @@
   },
   {
     "id": "ironheart-2025",
-    "order": 113,
+    "order": 114,
     "title": "Железное сердце",
     "originalTitle": "Ironheart",
     "timeline": "2026",
@@ -1481,7 +1494,7 @@
   },
   {
     "id": "agatha-all-along-2024",
-    "order": 114,
+    "order": 115,
     "title": "Агата всё вместе",
     "originalTitle": "Agatha All Along",
     "timeline": "2026",
@@ -1494,7 +1507,7 @@
   },
   {
     "id": "deadpool-2016",
-    "order": 115,
+    "order": 116,
     "title": "Дэдпул",
     "originalTitle": "Deadpool",
     "timeline": "2016",
@@ -1507,7 +1520,7 @@
   },
   {
     "id": "deadpool-2-2018",
-    "order": 116,
+    "order": 117,
     "title": "Дэдпул 2",
     "originalTitle": "Deadpool 2",
     "timeline": "2018",
@@ -1520,7 +1533,7 @@
   },
   {
     "id": "logan-2017",
-    "order": 117,
+    "order": 118,
     "title": "Логан",
     "originalTitle": "Logan",
     "timeline": "2029",
@@ -1533,7 +1546,7 @@
   },
   {
     "id": "deadpool-and-wolverine-2024",
-    "order": 118,
+    "order": 119,
     "title": "Дэдпул и Росомаха",
     "originalTitle": "Deadpool & Wolverine",
     "timeline": "2024 / TVA",
@@ -1547,7 +1560,7 @@
   },
   {
     "id": "spider-man-into-the-spider-verse-2018",
-    "order": 119,
+    "order": 120,
     "title": "Человек-паук: Через вселенные",
     "originalTitle": "Spider-Man: Into the Spider-Verse",
     "timeline": "2018",
@@ -1560,7 +1573,7 @@
   },
   {
     "id": "spider-man-across-the-spider-verse-2023",
-    "order": 120,
+    "order": 121,
     "title": "Человек-паук: Паутина вселенных",
     "originalTitle": "Spider-Man: Across the Spider-Verse",
     "timeline": "2023",
@@ -1573,7 +1586,7 @@
   },
   {
     "id": "spider-noir-s1",
-    "order": 121,
+    "order": 122,
     "title": "Человек-паук: Нуар",
     "originalTitle": "Spider-Noir",
     "timeline": "1930-е",
@@ -1589,7 +1602,7 @@
   },
   {
     "id": "spider-man-beyond-spider-verse-2027",
-    "order": 122,
+    "order": 123,
     "title": "Человек-паук: За пределами вселенной",
     "originalTitle": "Spider-Man: Beyond the Spider-Verse",
     "releaseYear": 2027,
@@ -1602,7 +1615,7 @@
   },
   {
     "id": "venom-2018",
-    "order": 123,
+    "order": 124,
     "title": "Веном",
     "originalTitle": "Venom",
     "timeline": "2018",
@@ -1615,7 +1628,7 @@
   },
   {
     "id": "venom-2-2021",
-    "order": 124,
+    "order": 125,
     "title": "Веном 2",
     "originalTitle": "Venom: Let There Be Carnage",
     "timeline": "2019",
@@ -1628,7 +1641,7 @@
   },
   {
     "id": "morbius-2022",
-    "order": 125,
+    "order": 126,
     "title": "Морбиус",
     "originalTitle": "Morbius",
     "timeline": "2020-е",
@@ -1641,7 +1654,7 @@
   },
   {
     "id": "madame-web-2024",
-    "order": 126,
+    "order": 127,
     "title": "Мадам Паутина",
     "originalTitle": "Madame Web",
     "timeline": "2003",
@@ -1654,7 +1667,7 @@
   },
   {
     "id": "venom-the-last-dance-2024",
-    "order": 127,
+    "order": 128,
     "title": "Веном: Последний танец",
     "originalTitle": "Venom: The Last Dance",
     "timeline": "2020-е",
@@ -1667,7 +1680,7 @@
   },
   {
     "id": "kraven-the-hunter-2024",
-    "order": 128,
+    "order": 129,
     "title": "Крэйвен-охотник",
     "originalTitle": "Kraven the Hunter",
     "timeline": "современность",
@@ -1680,7 +1693,7 @@
   },
   {
     "id": "legion-s1",
-    "order": 129,
+    "order": 130,
     "title": "Легион",
     "originalTitle": "Legion",
     "releaseYear": 2017,
@@ -1694,7 +1707,7 @@
   },
   {
     "id": "legion-s2",
-    "order": 130,
+    "order": 131,
     "title": "Легион",
     "originalTitle": "Legion",
     "releaseYear": 2018,
@@ -1707,7 +1720,7 @@
   },
   {
     "id": "legion-s3",
-    "order": 131,
+    "order": 132,
     "title": "Легион",
     "originalTitle": "Legion",
     "releaseYear": 2019,
@@ -1720,7 +1733,7 @@
   },
   {
     "id": "the-gifted-s1",
-    "order": 132,
+    "order": 133,
     "title": "Одарённые",
     "originalTitle": "The Gifted",
     "releaseYear": 2017,
@@ -1734,7 +1747,7 @@
   },
   {
     "id": "the-gifted-s2",
-    "order": 133,
+    "order": 134,
     "title": "Одарённые",
     "originalTitle": "The Gifted",
     "releaseYear": 2018,
@@ -1747,7 +1760,7 @@
   },
   {
     "id": "captain-america-brave-new-world-2025",
-    "order": 134,
+    "order": 135,
     "title": "Капитан Америка: Новый мир",
     "originalTitle": "Captain America: Brave New World",
     "timeline": "2026",
@@ -1760,7 +1773,7 @@
   },
   {
     "id": "thunderbolts-2025",
-    "order": 135,
+    "order": 136,
     "title": "Громовержцы*",
     "originalTitle": "Thunderbolts*",
     "timeline": "2027",
@@ -1773,7 +1786,7 @@
   },
   {
     "id": "daredevil-born-again-s1",
-    "order": 136,
+    "order": 137,
     "title": "Сорвиголова: Рождённый заново",
     "originalTitle": "Daredevil: Born Again",
     "timeline": "2026",
@@ -1788,7 +1801,7 @@
   },
   {
     "id": "daredevil-born-again-s2",
-    "order": 137,
+    "order": 138,
     "title": "Сорвиголова: Рождённый заново",
     "originalTitle": "Daredevil: Born Again",
     "timeline": "2027",
@@ -1803,7 +1816,7 @@
   },
   {
     "id": "wonder-man-2026",
-    "order": 138,
+    "order": 139,
     "title": "Чудо-человек",
     "originalTitle": "Wonder Man",
     "timeline": "2027",
@@ -1817,7 +1830,7 @@
   },
   {
     "id": "punisher-last-kill-2026",
-    "order": 139,
+    "order": 140,
     "title": "Каратель: Последнее убийство",
     "timeline": "2027",
     "releaseYear": 2026,
@@ -1828,7 +1841,7 @@
   },
   {
     "id": "spider-man-brand-new-day-2026",
-    "order": 140,
+    "order": 141,
     "title": "Человек-паук: Совершенно новый день",
     "originalTitle": "Spider-Man: Brand New Day",
     "timeline": "2028",
@@ -1842,7 +1855,7 @@
   },
   {
     "id": "avengers-doomsday-2026",
-    "order": 141,
+    "order": 142,
     "title": "Мстители: Судный день",
     "originalTitle": "Avengers: Doomsday",
     "releaseDate": "18 декабря 2026",
@@ -1855,7 +1868,7 @@
   },
   {
     "id": "spider-man-beyond-spider-verse-future",
-    "order": 142,
+    "order": 143,
     "title": "Человек-паук: За пределами вселенной",
     "originalTitle": "Spider-Man: Beyond the Spider-Verse",
     "releaseYear": 2027,
@@ -1867,7 +1880,7 @@
   },
   {
     "id": "avengers-secret-wars-2027",
-    "order": 143,
+    "order": 144,
     "title": "Мстители: Секретные войны",
     "originalTitle": "Avengers: Secret Wars",
     "releaseDate": "17 декабря 2027",
@@ -1880,7 +1893,7 @@
   },
   {
     "id": "x-men-mcu-2028",
-    "order": 144,
+    "order": 145,
     "title": "Люди Икс",
     "originalTitle": "X-Men",
     "releaseDate": "5 мая 2028",

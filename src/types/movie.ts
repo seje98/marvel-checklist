@@ -1,24 +1,33 @@
 export type Importance = "required" | "recommended" | "optional";
 
-export type MovieType =
-  | "movie"
-  | "series"
-  | "special"
-  | "one-shot"
-  | "animation"
-  | "legacy";
+export const MOVIE_TYPES = [
+  "movie",
+  "series",
+  "special",
+  "one-shot",
+  "animation",
+  "legacy",
+] as const;
 
-export type MovieTag =
-  | "required"
-  | "recommended"
-  | "optional"
-  | "multiverse"
-  | "tv"
-  | "legacy"
-  | "future";
+export type MovieType = (typeof MOVIE_TYPES)[number];
+
+export const MOVIE_TAGS = [
+  "required",
+  "recommended",
+  "optional",
+  "multiverse",
+  "tv",
+  "legacy",
+  "future",
+] as const;
+
+export type MovieTag = (typeof MOVIE_TAGS)[number];
 
 export interface Movie {
+  /** Строковый идентификатор проекта (в Mokky хранится в поле `slug`). */
   id: string;
+  /** Числовой id записи в Mokky; нужен для PATCH и DELETE. */
+  recordId?: number;
   order: number;
   title: string;
   originalTitle?: string;

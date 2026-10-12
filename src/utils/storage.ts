@@ -2,6 +2,7 @@ import { STORAGE_KEYS } from "../config";
 import type {
   CanonFilter,
   ImportanceFilter,
+  Movie,
   PendingChange,
   TypeFilter,
   WatchedEntry,
@@ -160,4 +161,32 @@ export function loadCollapsed(): number[] {
 
 export function saveCollapsed(sections: number[]): void {
   writeJson(STORAGE_KEYS.collapsed, sections);
+}
+
+function isCachedMovie(value: unknown): value is Movie {
+  if (typeof value !== "object" || value === null) {
+    return false;
+  }
+  const movie = value as Partial<Movie>;
+  return (
+    typeof movie.id === "string" &&
+    typeof movie.order === "number" &&
+    typeof movie.title === "string" &&
+    typeof movie.type === "string" &&
+    Array.isArray(movie.tags) &&
+    typeof movie.section === "number" &&
+    typeof movie.sectionTitle === "string"
+  );
+}
+
+export function loadMoviesCache(): Movie[] {
+  const data = readJson<unknown>(STORAGE_KEYS.movies, []);
+  if (!Array.isArray(data)) {
+    return [];
+  }
+  return data.filter(isCachedMovie);
+}
+
+export function saveMoviesCache(movies: Movie[]): void {
+  writeJson(STORAGE_KEYS.movies, movies);
 }
